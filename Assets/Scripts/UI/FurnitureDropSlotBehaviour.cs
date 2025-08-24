@@ -1,19 +1,15 @@
-using UnityEngine;
-using UnityEngine.UI;
+using FFF.Managers;
 
 namespace FFF.UI
 {
    public class FurnitureDropSlotBehaviour : DashedLineBorderBehaviour
    {
-      private LineRenderer m_border;
-
-      private Image m_imgFurnitureDisplay;
-
-      public void Init()
+      public override void Init(LevelManager p_manager)
       {
-         DrawBorder();
+         base.Init(p_manager);
+
+         IsWaitingSelection = false;
       }
    }
 }
-
 
