@@ -5,39 +5,51 @@ using UnityEngine;
 public class FurnitureUtils : MonoBehaviour
 {
     // Get the probability of a Furniture
-    public float GetProbabilityOfFalling(Furniture p_current, Furniture p_previous, Player p_player)
+    public float GetProbabilityOfFalling(Player p_player, List<Furniture> p_lstFurniture)
     {
-        return GetProbabilityOfFallingV1(p_current, p_previous, p_player);
+        return GetProbabilityOfFallingV1(p_player, p_lstFurniture);
     }
 
     // ########## V1 ##########
 
-    float GetProbabilityOfFallingV1(Furniture p_current, Furniture p_previous, Player p_player)
+    float GetProbabilityOfFallingV1(Player p_player, List<Furniture> p_lstFurniture)
     {
+        Furniture p_current = p_lstFurniture[0];
+        Furniture p_previous = p_lstFurniture[1];
+
+        /* ### RULE 1 ### */
         // You can't fall from the first furniture
-        // You can't fall if the stability of the furniture equal to the previous one
-        if (p_previous == null || p_current.GetStability() == p_previous.GetStability()) { return 0f ; }
+        if (p_previous == null) { return 0f; }
 
 
         int l_dCurrentStability = p_current.GetStability();
 
-        // If the stability is lower than the previous one, we subtract 1 from the current one
-        if (l_dCurrentStability > p_previous.GetStability()) {
+        /* ### RULE 2 ### */
+        // If the stability is bigger than the previous one, we subtract 1 from the current one
+        if (l_dCurrentStability > p_previous.GetStability())
+        {
             l_dCurrentStability--;
         }
 
-        // You fall if the stability is 0 or 1
+        // You fall if the stability is 0 or 1 (Dev's shortcut)
         if (l_dCurrentStability < 2) { return 1f; }
 
+        float l_probabilityOfFalling = 0f;
 
-        float l_probabilityOfFalling = 1f / l_dCurrentStability;
-
-        // If player's stamina is lower than the stability, we add stamina / staminaMax to the probability of falling
+        /* ### RULE 3 ### */
+        // If player's stamina is lower than the stability (modified or not), we add stamina / staminaMax to the probability of falling
         if (p_player.GetStamina() < l_dCurrentStability)
         {
-            l_probabilityOfFalling += (float) p_player.GetStamina() / (float) p_player.GetStaminaMax();
+            l_probabilityOfFalling += (float)p_player.GetStamina() / (float)p_player.GetStaminaMax();
         }
 
-        return l_probabilityOfFalling;
+        /* ### RULE 4 ### */
+        // If the (original) stability is equal to the previous one, we ignore the stability for the probability of falling
+        if (p_current.GetStability() == p_previous.GetStability()) { return l_probabilityOfFalling; }
+
+
+        /* ### RULE 5 ### */
+        // If the stabilities are different we add 1 / stability to the probability of falling
+        return l_probabilityOfFalling += 1f / l_dCurrentStability;
     }
 }
