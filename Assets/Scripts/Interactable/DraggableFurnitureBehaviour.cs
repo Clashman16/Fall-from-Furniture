@@ -1,3 +1,4 @@
+using FFF.Managers;
 using FFF.ScriptableObjects;
 using FFF.UI;
 using TMPro;
@@ -29,7 +30,7 @@ namespace FFF.Interactable
 
       private TextMeshProUGUI m_stabilityDisplay;
 
-      public void Init(ScriptableFurnitureData p_data)
+      public void Init(ScriptableFurnitureData p_data, LevelManager p_manager)
       {
          m_data = p_data;
 
@@ -39,7 +40,9 @@ namespace FFF.Interactable
 
          CurrentStability = m_data.Stability;
 
-         DrawBorder();
+         base.Init(p_manager);
+
+         IsWaitingSelection = true;
       }
    }
 }
