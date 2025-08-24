@@ -1,11 +1,11 @@
 using FFF.ScriptableObjects;
+using FFF.UI;
 using TMPro;
-using UnityEngine;
 using UnityEngine.UI;
 
 namespace FFF.Interactable
 {
-   public class DraggableFurnitureBehaviour : MonoBehaviour
+   public class DraggableFurnitureBehaviour : DashedLineBorderBehaviour
    {
       private ScriptableFurnitureData m_data;
 
@@ -38,6 +38,8 @@ namespace FFF.Interactable
          m_stabilityDisplay = GetComponentInChildren<TextMeshProUGUI>();
 
          CurrentStability = m_data.Stability;
+
+         DrawBorder();
       }
    }
 }
