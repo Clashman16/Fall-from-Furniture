@@ -17,7 +17,7 @@ public static class FurnitureUtils
         return TryClimbingV1(p_player, p_lstFurniture);
     }
 
-    // ########## V1 ##########
+    #region V1
 
     private static float GetProbabilityOfFallingV1(Player p_player, List<Furniture> p_lstFurniture)
     {
@@ -75,4 +75,6 @@ public static class FurnitureUtils
 
         return -1;
     }
+
+    #endregion
 }
