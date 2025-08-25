@@ -24,6 +24,14 @@ namespace FFF.Managers
 
       #endregion
 
+      #region Checking result
+
+      private int m_dFurnitureCount;
+
+      public bool IsCheckingResult => m_dFurnitureCount == m_lstStackedFurniture.Count;
+
+      #endregion
+
       #region Drag n drop management
 
       private DashedLineBorderBehaviour m_lastSelectedInteractable;
@@ -69,6 +77,18 @@ namespace FFF.Managers
                }
 
                m_dCurrentRefillableSlotId += 1;
+
+               if(IsCheckingResult)
+               {
+                  List<FurnitureDropSlotBehaviour> l_lstAllStackedFurniture = new List<FurnitureDropSlotBehaviour>();
+
+                  foreach(FurnitureDropSlotBehaviour l_furniture in m_lstStackedFurniture)
+                  {
+                     l_lstAllStackedFurniture.Add(l_furniture);
+                  }
+
+                  FurnitureUtils.TryClimbing(m_cat, l_lstAllStackedFurniture);
+               }
             }
             else
             {
@@ -97,7 +117,9 @@ namespace FFF.Managers
       {
          ScriptableFurnitureData[] l_lstFurniture = PlayerSaveSingleton.Instance.CurentLevelData;
 
-         for (int l_i = 0; l_i < l_lstFurniture.Length; l_i++)
+         m_dFurnitureCount = l_lstFurniture.Length;
+
+         for (int l_i = 0; l_i < m_dFurnitureCount; l_i++)
          {
             GameObject l_goSlot = Instantiate(m_goFurnitureSlotPrefab, m_furnitureSlotLayoutGroup.transform);
             l_goSlot.GetComponent<FurnitureDropSlotBehaviour>().Init(this);

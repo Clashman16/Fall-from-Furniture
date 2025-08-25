@@ -1,3 +1,4 @@
+using FFF.Managers;
 using FFF.Player;
 using FFF.Utils;
 using TMPro;
@@ -11,16 +12,20 @@ namespace FFF.Behaviours.UI
 
       private float m_fTime;
 
+      private LevelManager m_levelManager;
+
       private void Start()
       {
          m_timerDisplay = GetComponentInChildren<TextMeshProUGUI>();
 
          m_fTime = PlayerSaveSingleton.Instance.TimerMax * 60f;
+
+         m_levelManager = GetComponentInParent<LevelManager>();
       }
 
       private void Update()
       {
-         if (PlayerStateSingleton.Instance.GameScreen == EGameScreen.GAME_SCREEN)
+         if (PlayerStateSingleton.Instance.GameScreen == EGameScreen.GAME_SCREEN && !m_levelManager.IsCheckingResult)
          {
             m_fTime -= Time.deltaTime;
 
