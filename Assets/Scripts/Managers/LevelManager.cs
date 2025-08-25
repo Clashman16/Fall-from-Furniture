@@ -1,8 +1,8 @@
 using FFF.Characters;
-using FFF.Interactable;
+using FFF.Behaviours.Interactable;
 using FFF.Player;
 using FFF.ScriptableObjects;
-using FFF.UI;
+using FFF.Behaviours.UI;
 using FFF.Utils;
 using System.Collections.Generic;
 using UnityEngine;
