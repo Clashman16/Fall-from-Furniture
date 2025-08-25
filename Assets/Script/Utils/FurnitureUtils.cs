@@ -10,9 +10,16 @@ public class FurnitureUtils : MonoBehaviour
         return GetProbabilityOfFallingV1(p_player, p_lstFurniture);
     }
 
+    // Check if the cat succed to climb the furnitures
+    // Return the index of the failing furniture, or -1 if succed
+    public int TryClimbing(Player p_player, List<Furniture> p_lstFurniture)
+    {
+        return TryClimbingV1(p_player, p_lstFurniture);
+    }
+
     // ########## V1 ##########
 
-    float GetProbabilityOfFallingV1(Player p_player, List<Furniture> p_lstFurniture)
+    private float GetProbabilityOfFallingV1(Player p_player, List<Furniture> p_lstFurniture)
     {
         Furniture p_current = p_lstFurniture[0];
         Furniture p_previous = p_lstFurniture[1];
@@ -51,5 +58,21 @@ public class FurnitureUtils : MonoBehaviour
         /* ### RULE 5 ### */
         // If the stabilities are different we add 1 / stability to the probability of falling
         return l_probabilityOfFalling += 1f / l_dCurrentStability;
+    }
+    private int TryClimbingV1(Player p_player, List<Furniture> p_lstFurniture)
+    {
+        for(int i = 0; i < p_lstFurniture.Count; i++)
+        {
+            float l_probability = p_lstFurniture[i].GetProbability();
+
+            // Maybe store the random value somewhere in the furniture for a visual effect ?
+
+            if(Random.value <= l_probability)
+            {
+                return i;
+            }
+        }
+
+        return -1;
     }
 }
