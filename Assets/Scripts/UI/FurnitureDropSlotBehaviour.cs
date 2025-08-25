@@ -1,9 +1,9 @@
-using FFF.Interactable;
+using FFF.Behaviours.Interactable;
 using FFF.Managers;
 using TMPro;
 using UnityEngine.EventSystems;
 
-namespace FFF.UI
+namespace FFF.Behaviours.UI
 {
    public class FurnitureDropSlotBehaviour : DashedLineBorderBehaviour, IDropHandler
    {

@@ -1,8 +1,8 @@
 using FFF.Characters;
-using FFF.Interactable;
+using FFF.Behaviours.Interactable;
 using FFF.Player;
 using FFF.ScriptableObjects;
-using FFF.UI;
+using FFF.Behaviours.UI;
 using FFF.Utils;
 using System.Collections.Generic;
 using UnityEngine;
@@ -45,16 +45,16 @@ namespace FFF.Managers
 
                l_dropSlot.CurrentStability = ((DraggableFurnitureBehaviour)m_lastSelectedInteractable).Stability;
 
-               m_lstStackedFurniture.Add(l_dropSlot);
-
                List<FurnitureDropSlotBehaviour> l_lstLastStackedFurniture = new List<FurnitureDropSlotBehaviour>();
 
                l_lstLastStackedFurniture.Add(l_dropSlot);
 
-               if(m_lstStackedFurniture.Count > 1)
+               if(m_lstStackedFurniture.Count > 0)
                {
-                  l_lstLastStackedFurniture.Add(m_lstStackedFurniture[m_lstStackedFurniture.Count-2]);
+                  l_lstLastStackedFurniture.Add(m_lstStackedFurniture.Peek());
                }
+
+               m_lstStackedFurniture.Enqueue(l_dropSlot);
 
                l_dropSlot.CurrentProbability = FurnitureUtils.GetProbabilityOfFalling(m_cat, l_lstLastStackedFurniture);
 
@@ -87,7 +87,7 @@ namespace FFF.Managers
 
       private int m_dCurrentRefillableSlotId = 0;
 
-      private List<FurnitureDropSlotBehaviour> m_lstStackedFurniture;
+      private Queue<FurnitureDropSlotBehaviour> m_lstStackedFurniture;
 
       #endregion
 
@@ -109,7 +109,7 @@ namespace FFF.Managers
 
          m_cat = new CatData(l_lstFurniture.Length);
 
-         m_lstStackedFurniture = new List<FurnitureDropSlotBehaviour>();
+         m_lstStackedFurniture = new Queue<FurnitureDropSlotBehaviour>();
       }
    }
 }

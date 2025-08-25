@@ -1,6 +1,5 @@
 using FFF.Characters;
-using FFF.Interactable;
-using FFF.UI;
+using FFF.Behaviours.UI;
 using System.Collections.Generic;
 using UnityEngine;
 

@@ -1,12 +1,12 @@
 using FFF.Managers;
 using FFF.ScriptableObjects;
-using FFF.UI;
+using FFF.Behaviours.UI;
 using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
-namespace FFF.Interactable
+namespace FFF.Behaviours.Interactable
 {
    public class DraggableFurnitureBehaviour : DashedLineBorderBehaviour, IBeginDragHandler, IDragHandler, IEndDragHandler
    {

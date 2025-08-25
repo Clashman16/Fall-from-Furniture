@@ -2,7 +2,7 @@ using FFF.Managers;
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace FFF.UI
+namespace FFF.Behaviours.UI
 {
    public class DashedLineBorderBehaviour : MonoBehaviour
    {

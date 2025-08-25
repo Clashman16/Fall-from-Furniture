@@ -46,5 +46,11 @@ namespace FFF.Player
             return m_levelListData.LevelList[CurrentLevelId].FurnitureList;
          }
       }
+
+      public int TimerMax
+      {
+         get => PlayerPrefs.GetInt(string.Concat(m_prefPrefix, "TimerMax"), 5);
+         set => PlayerPrefs.SetInt(string.Concat(m_prefPrefix, "TimerMax"), value);
+      }
    }
 }
