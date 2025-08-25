@@ -19,16 +19,16 @@ namespace FFF.Behaviours.Interactable
          get => m_data;
       }
 
-      private int m_stability;
+      private int m_dStability;
 
       public int Stability
       {
-         get => m_stability;
+         get => m_dStability;
          set
          {
-            m_stability = value;
+            m_dStability = value;
 
-            m_stabilityDisplay.text = m_stability.ToString();
+            m_stabilityDisplay.text = m_dStability.ToString();
          }
       }
 

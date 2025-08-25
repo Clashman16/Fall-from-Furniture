@@ -1,3 +1,4 @@
+using FFF.Managers;
 using FFF.Player;
 using FFF.Utils;
 using TMPro;
@@ -9,24 +10,28 @@ namespace FFF.Behaviours.UI
    {
       private TextMeshProUGUI m_timerDisplay;
 
-      private float m_time;
+      private float m_fTime;
+
+      private LevelManager m_levelManager;
 
       private void Start()
       {
          m_timerDisplay = GetComponentInChildren<TextMeshProUGUI>();
 
-         m_time = PlayerSaveSingleton.Instance.TimerMax * 60f;
+         m_fTime = PlayerSaveSingleton.Instance.TimerMax * 60f;
+
+         m_levelManager = GetComponentInParent<LevelManager>();
       }
 
       private void Update()
       {
-         if (PlayerStateSingleton.Instance.GameScreen == EGameScreen.GAME_SCREEN)
+         if (PlayerStateSingleton.Instance.GameScreen == EGameScreen.GAME_SCREEN && !m_levelManager.IsCheckingResult)
          {
-            m_time -= Time.deltaTime;
+            m_fTime -= Time.deltaTime;
 
-            if (m_time <= 0)
+            if (m_fTime <= 0)
             {
-               m_time = 0;
+               m_fTime = 0;
 
                PlayerStateSingleton.Instance.GameScreen = EGameScreen.END_SCREEN;
             }
@@ -37,12 +42,12 @@ namespace FFF.Behaviours.UI
 
       private void UpdateDisplay()
       {
-         m_timerDisplay.text = string.Format("{0:0}:{1:00}", Mathf.FloorToInt(m_time / 60f), Mathf.FloorToInt(m_time % 60f));
+         m_timerDisplay.text = string.Format("{0:0}:{1:00}", Mathf.FloorToInt(m_fTime / 60f), Mathf.FloorToInt(m_fTime % 60f));
       }
 
       public void Reset()
       {
-         m_time = PlayerSaveSingleton.Instance.TimerMax * 60f;
+         m_fTime = PlayerSaveSingleton.Instance.TimerMax * 60f;
       }
    }
 }

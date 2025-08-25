@@ -41,8 +41,8 @@ namespace FFF.Behaviours.UI
 
       private Gradient m_selectionGradient;
 
-      private float m_gradientTimer;
-      private int m_timerCoef;
+      private float m_fGradientTimer;
+      private int m_dTimerCoef;
 
       #endregion
 
@@ -60,9 +60,9 @@ namespace FFF.Behaviours.UI
          m_selectionGradient = new Gradient();
          m_selectionGradient.SetKeys(l_lstColor, l_lstAlpha);
 
-         m_gradientTimer = 0;
+         m_fGradientTimer = 0;
 
-         m_timerCoef = 1;
+         m_dTimerCoef = 1;
 
          m_button = GetComponent<Button>();
 
@@ -100,16 +100,16 @@ namespace FFF.Behaviours.UI
       {
          if(m_isWaitingSelection == true)
          {
-            if (m_gradientTimer > 1 || m_gradientTimer < 0)
+            if (m_fGradientTimer > 1 || m_fGradientTimer < 0)
             {
-               m_timerCoef *= -1;
+               m_dTimerCoef *= -1;
             }
 
-            Color l_newColor = m_selectionGradient.Evaluate(m_gradientTimer);
+            Color l_newColor = m_selectionGradient.Evaluate(m_fGradientTimer);
 
             m_border.material.SetColor("_MainColor", l_newColor);
 
-            m_gradientTimer += 0.005f * m_timerCoef;
+            m_fGradientTimer += 0.005f * m_dTimerCoef;
          }
       }
 
