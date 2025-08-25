@@ -2,24 +2,24 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class FurnitureUtils : MonoBehaviour
+public static class FurnitureUtils
 {
     // Get the probability of a Furniture
-    public float GetProbabilityOfFalling(Player p_player, List<Furniture> p_lstFurniture)
+    public static float GetProbabilityOfFalling(Player p_player, List<Furniture> p_lstFurniture)
     {
         return GetProbabilityOfFallingV1(p_player, p_lstFurniture);
     }
 
     // Check if the cat succed to climb the furnitures
     // Return the index of the failing furniture, or -1 if succed
-    public int TryClimbing(Player p_player, List<Furniture> p_lstFurniture)
+    public static int TryClimbing(Player p_player, List<Furniture> p_lstFurniture)
     {
         return TryClimbingV1(p_player, p_lstFurniture);
     }
 
     // ########## V1 ##########
 
-    private float GetProbabilityOfFallingV1(Player p_player, List<Furniture> p_lstFurniture)
+    private static float GetProbabilityOfFallingV1(Player p_player, List<Furniture> p_lstFurniture)
     {
         Furniture p_current = p_lstFurniture[0];
         Furniture p_previous = p_lstFurniture[1];
@@ -59,7 +59,7 @@ public class FurnitureUtils : MonoBehaviour
         // If the stabilities are different we add 1 / stability to the probability of falling
         return l_probabilityOfFalling += 1f / l_dCurrentStability;
     }
-    private int TryClimbingV1(Player p_player, List<Furniture> p_lstFurniture)
+    private static int TryClimbingV1(Player p_player, List<Furniture> p_lstFurniture)
     {
         for(int i = 0; i < p_lstFurniture.Count; i++)
         {
