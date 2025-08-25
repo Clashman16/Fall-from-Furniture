@@ -30,6 +30,7 @@ namespace FFF.Managers
 
       public DashedLineBorderBehaviour LastSelectedInteractable
       {
+         get => m_lastSelectedInteractable;
          set
          {
             if(value.GetType() == typeof(FurnitureDropSlotBehaviour))

@@ -91,6 +91,7 @@ GameObject:
   - component: {fileID: 3549150482249689319}
   - component: {fileID: 1363370773714004638}
   - component: {fileID: 6067231645447763552}
+  - component: {fileID: 2215497147280736324}
   m_Layer: 5
   m_Name: DraggableFurniture
   m_TagString: Untagged
@@ -328,6 +329,18 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+--- !u!225 &2215497147280736324
+CanvasGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4775905344252296661}
+  m_Enabled: 1
+  m_Alpha: 1
+  m_Interactable: 1
+  m_BlocksRaycasts: 1
+  m_IgnoreParentGroups: 0
 --- !u!1 &7181097130451297275
 GameObject:
   m_ObjectHideFlags: 0

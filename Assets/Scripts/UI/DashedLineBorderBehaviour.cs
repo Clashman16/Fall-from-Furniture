@@ -8,6 +8,11 @@ namespace FFF.UI
    {
       LevelManager m_levelManager;
 
+      public LevelManager LevelManager
+      {
+         get => m_levelManager;
+      }
+
       private LineRenderer m_border;
 
       private Image m_imgFurnitureDisplay;

@@ -1,9 +1,11 @@
+using FFF.Interactable;
 using FFF.Managers;
 using TMPro;
+using UnityEngine.EventSystems;
 
 namespace FFF.UI
 {
-   public class FurnitureDropSlotBehaviour : DashedLineBorderBehaviour
+   public class FurnitureDropSlotBehaviour : DashedLineBorderBehaviour, IDropHandler
    {
       private float m_currentProbability;
 
@@ -39,6 +41,14 @@ namespace FFF.UI
 
          m_probabilityDisplay = GetComponentInChildren<TextMeshProUGUI>();
       }
+
+      public void OnDrop(PointerEventData p_eventData)
+      {
+         DraggableFurnitureBehaviour l_draggable = p_eventData.pointerDrag.GetComponent<DraggableFurnitureBehaviour>();
+         if (l_draggable != null && LevelManager.LastSelectedInteractable == l_draggable)
+         {
+            LevelManager.LastSelectedInteractable = this;
+         }
+      }
    }
 }
-
