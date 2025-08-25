@@ -1,7 +1,9 @@
+using FFF.Characters;
 using FFF.Interactable;
 using FFF.Player;
 using FFF.ScriptableObjects;
 using FFF.UI;
+using FFF.Utils;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
@@ -37,12 +39,23 @@ namespace FFF.Managers
                m_lastSelectedInteractable.gameObject.SetActive(false);
 
                // TODO (A1) : Get previous furniture (Move the furniture object instead of only changing a sprite ?)
-               // TODO (A2) : Define Player class with int Stamina and int StaminaMax
-               // List<DraggableFurnitureBehaviour> l_lstFurniture = new();
-               // l_lstFurniture.Add((DraggableFurnitureBehaviour)m_lastSelectedInteractable);
-               // Add previous furniture ?
-               ((DraggableFurnitureBehaviour)m_lastSelectedInteractable).CurrentProbability = FurnitureUtils.GetProbabilityOfFalling(/* player */ null, /*l_lstFurniture*/ new());
-               // TODO END
+
+               FurnitureDropSlotBehaviour l_dropSlot = (FurnitureDropSlotBehaviour)value;
+
+               l_dropSlot.CurrentStability = ((DraggableFurnitureBehaviour)m_lastSelectedInteractable).Stability;
+
+               m_lstStackedFurniture.Add(l_dropSlot);
+
+               List<FurnitureDropSlotBehaviour> l_lstLastStackedFurniture = new List<FurnitureDropSlotBehaviour>();
+
+               l_lstLastStackedFurniture.Add(l_dropSlot);
+
+               if(m_lstStackedFurniture.Count > 1)
+               {
+                  l_lstLastStackedFurniture.Add(m_lstStackedFurniture[m_lstStackedFurniture.Count-2]);
+               }
+
+               l_dropSlot.CurrentProbability = FurnitureUtils.GetProbabilityOfFalling(m_cat, l_lstLastStackedFurniture);
 
                foreach (Transform l_draggableTrf in m_draggableFurnitureLayoutGroup.transform)
                {
@@ -73,9 +86,11 @@ namespace FFF.Managers
 
       private int m_dCurrentRefillableSlotId = 0;
 
+      private List<FurnitureDropSlotBehaviour> m_lstStackedFurniture;
+
       #endregion
 
-
+      CatData m_cat;
 
       private void Start()
       {
@@ -90,6 +105,10 @@ namespace FFF.Managers
             GameObject l_goDraggable = Instantiate(m_draggableFurniturePrefab, m_draggableFurnitureLayoutGroup.transform);
             l_goDraggable.GetComponent<DraggableFurnitureBehaviour>().Init(l_lstFurniture[l_i], this);
          }
+
+         m_cat = new CatData(l_lstFurniture.Length);
+
+         m_lstStackedFurniture = new List<FurnitureDropSlotBehaviour>();
       }
    }
 }

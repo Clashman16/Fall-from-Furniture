@@ -15,36 +15,20 @@ namespace FFF.Interactable
          get => m_data;
       }
 
-      private int m_currentStability;
+      private int m_stability;
 
-      public int CurrentStability
+      public int Stability
       {
-         get => m_currentStability;
+         get => m_stability;
          set
          {
-            m_currentStability = value;
+            m_stability = value;
 
-            m_stabilityDisplay.text = m_currentStability.ToString();
+            m_stabilityDisplay.text = m_stability.ToString();
          }
       }
     
       private TextMeshProUGUI m_stabilityDisplay;
-
-      private float m_currentProbability;
-
-      public float CurrentProbability
-      {
-         get => m_currentProbability;
-         set
-         {
-            m_currentProbability = value;
-            // TODO (A3) : Add an UI element next to the future slot
-            // m_probabilityDisplay.text = m_currentProbability.ToString();
-         }
-      }
-      
-      // TODO (A3) : Add an UI element next to the future slot
-      // private TextMeshProUGUI m_probabilityDisplay;
 
       public void Init(ScriptableFurnitureData p_data, LevelManager p_manager)
       {
@@ -54,7 +38,7 @@ namespace FFF.Interactable
 
          m_stabilityDisplay = GetComponentInChildren<TextMeshProUGUI>();
 
-         CurrentStability = m_data.Stability;
+         Stability = m_data.Stability;
 
          base.Init(p_manager);
 
