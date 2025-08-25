@@ -2,6 +2,7 @@ using FFF.Interactable;
 using FFF.Player;
 using FFF.ScriptableObjects;
 using FFF.UI;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -34,6 +35,14 @@ namespace FFF.Managers
                value.GetComponent<Image>().sprite = ((DraggableFurnitureBehaviour)m_lastSelectedInteractable).Data.Appearance;
 
                m_lastSelectedInteractable.gameObject.SetActive(false);
+
+               // TODO (A1) : Get previous furniture (Move the furniture object instead of only changing a sprite ?)
+               // TODO (A2) : Define Player class with int Stamina and int StaminaMax
+               // List<DraggableFurnitureBehaviour> l_lstFurniture = new();
+               // l_lstFurniture.Add((DraggableFurnitureBehaviour)m_lastSelectedInteractable);
+               // Add previous furniture ?
+               ((DraggableFurnitureBehaviour)m_lastSelectedInteractable).CurrentProbability = FurnitureUtils.GetProbabilityOfFalling(/* player */ null, /*l_lstFurniture*/ new());
+               // TODO END
 
                foreach (Transform l_draggableTrf in m_draggableFurnitureLayoutGroup.transform)
                {
