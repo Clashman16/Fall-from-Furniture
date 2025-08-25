@@ -20,14 +20,14 @@ namespace FFF.Behaviours.UI
          }
       }
 
-      private int m_currentStability;
+      private int m_dCurrentStability;
 
       public int CurrentStability
       {
-         get => m_currentStability;
+         get => m_dCurrentStability;
          set
          {
-            m_currentStability = value;
+            m_dCurrentStability = value;
          }
       }
 
