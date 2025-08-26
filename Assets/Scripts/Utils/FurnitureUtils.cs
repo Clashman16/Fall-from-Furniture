@@ -50,7 +50,7 @@ namespace FFF.Utils
 
          if (p_cat.Stamina < l_dCurrentStability)
          {
-             l_fProbabilityOfFalling += (float) p_cat.Stamina / (float) p_cat.StaminaMax;
+             l_fProbabilityOfFalling += 1f - (float) p_cat.Stamina / (float) p_cat.StaminaMax;
          }
 
          /* ### RULE 4 ### */
