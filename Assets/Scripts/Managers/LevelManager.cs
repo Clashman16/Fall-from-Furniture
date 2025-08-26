@@ -79,7 +79,20 @@ namespace FFF.Managers
 
                if(IsCheckingResult)
                {
+<<<<<<< HEAD
                   FurnitureUtils.TryClimbing(m_cat, m_lstStackedFurniture);
+=======
+                  List<FurnitureDropSlotBehaviour> l_lstAllStackedFurniture = new List<FurnitureDropSlotBehaviour>();
+
+                  foreach(FurnitureDropSlotBehaviour l_furniture in m_lstStackedFurniture)
+                  {
+                     l_lstAllStackedFurniture.Add(l_furniture);
+                  }
+
+                  FurnitureUtils.TryClimbing(m_cat, l_lstAllStackedFurniture);
+
+                  m_cat.Walk();
+>>>>>>> 095537e (WIP : Add Cat and Animate it)
                }
             }
             else
@@ -103,7 +116,7 @@ namespace FFF.Managers
 
       #endregion
 
-      CatData m_cat;
+      public CatController m_cat;
 
       private void Start()
       {
@@ -121,7 +134,7 @@ namespace FFF.Managers
             l_goDraggable.GetComponent<DraggableFurnitureBehaviour>().Init(l_lstFurniture[l_i], this);
          }
 
-         m_cat = new CatData(l_lstFurniture.Length);
+         m_cat.Init(l_lstFurniture.Length);
 
          m_lstStackedFurniture = new List<FurnitureDropSlotBehaviour>();
       }
