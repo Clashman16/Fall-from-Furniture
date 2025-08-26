@@ -46,11 +46,11 @@ namespace FFF.Utils
          float l_fProbabilityOfFalling = 0f;
 
          /* ### RULE 3 ### */
-         // If cat's stamina is lower than the stability (modified or not), we add 1f - stamina / staminaMax to the probability of falling
+         // If cat's stamina is lower than the stability (modified or not), we add (1 - stamina / staminaMax) / 10 to the probability of falling
 
          if (p_cat.Stamina < l_dCurrentStability)
          {
-             l_fProbabilityOfFalling += 1f - (float) p_cat.Stamina / (float) p_cat.StaminaMax;
+             l_fProbabilityOfFalling += (1f - (float) p_cat.Stamina / (float) p_cat.StaminaMax) / 10f;
          }
 
          /* ### RULE 4 ### */
