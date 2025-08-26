@@ -24,8 +24,6 @@ namespace FFF.Utils
 
       private static float GetProbabilityOfFallingV1(CatData p_cat, List<FurnitureDropSlotBehaviour> p_lstFurniture)
       {
-         Debug.Log("GetProbabilityOfFallingV1");
-
          /* ### RULE 1 ### */
          // You can't fall from the first furniture
          if (p_lstFurniture.Count < 2) { return 0f; }
@@ -48,22 +46,20 @@ namespace FFF.Utils
          float l_fProbabilityOfFalling = 0f;
 
          /* ### RULE 3 ### */
-         // If cat's stamina is lower than the stability (modified or not), we add stamina / staminaMax to the probability of falling
+         // If cat's stamina is lower than the stability (modified or not), we add 1f - stamina / staminaMax to the probability of falling
 
          if (p_cat.Stamina < l_dCurrentStability)
          {
              l_fProbabilityOfFalling += (float) p_cat.Stamina / (float) p_cat.StaminaMax;
          }
 
-
          /* ### RULE 4 ### */
          // If the (original) stability is equal to the previous one, we ignore the stability for the probability of falling
          if (p_current.CurrentStability == p_previous.CurrentStability) { return l_fProbabilityOfFalling; }
 
-
          /* ### RULE 5 ### */
          // If the stabilities are different we add 1 / stability to the probability of falling
-         return l_fProbabilityOfFalling += 1f / l_dCurrentStability;
+         return Mathf.Min(l_fProbabilityOfFalling + 1f / l_dCurrentStability, 1f);
       }
       private static int TryClimbingV1(CatData p_cat, List<FurnitureDropSlotBehaviour> p_lstFurniture)
       {

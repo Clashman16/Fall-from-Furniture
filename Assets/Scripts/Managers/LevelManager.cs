@@ -66,6 +66,9 @@ namespace FFF.Managers
 
                l_dropSlot.CurrentProbability = FurnitureUtils.GetProbabilityOfFalling(m_cat, l_lstLastStackedFurniture);
 
+               // Decrease stamina
+               m_cat.Stamina--;
+
                foreach (Transform l_draggableTrf in m_draggableFurnitureLayoutGroup.transform)
                {
                   l_draggableTrf.GetComponent<DraggableFurnitureBehaviour>().IsWaitingSelection = true;

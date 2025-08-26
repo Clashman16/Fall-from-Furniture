@@ -12,5 +12,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e16c730be77141c4a892be86d4512bca, type: 3}
   m_Name: stool
   m_EditorClassIdentifier: 
-  m_dStability: 1
+  m_dStability: 2
   m_imgAppearance: {fileID: 21300000, guid: b89c8893edf27a243a80607dc4ba0396, type: 3}
