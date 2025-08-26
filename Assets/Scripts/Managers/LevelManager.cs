@@ -76,14 +76,7 @@ namespace FFF.Managers
 
                if(IsCheckingResult)
                {
-                  List<FurnitureDropSlotBehaviour> l_lstAllStackedFurniture = new List<FurnitureDropSlotBehaviour>();
-
-                  foreach(FurnitureDropSlotBehaviour l_furniture in m_lstStackedFurniture)
-                  {
-                     l_lstAllStackedFurniture.Add(l_furniture);
-                  }
-
-                  FurnitureUtils.TryClimbing(m_cat, l_lstAllStackedFurniture);
+                  FurnitureUtils.TryClimbing(m_cat, m_lstStackedFurniture);
                }
             }
             else
