@@ -8,21 +8,21 @@ namespace FFF.Utils
    public static class FurnitureUtils
    {
       // Get the probability of a Furniture
-      public static float GetProbabilityOfFalling(CatData p_cat, List<FurnitureDropSlotBehaviour> p_lstFurniture)
+      public static float GetProbabilityOfFalling(CatController p_cat, List<FurnitureDropSlotBehaviour> p_lstFurniture)
       {
          return GetProbabilityOfFallingV1(p_cat, p_lstFurniture);
       }
 
       // Check if the cat succed to climb the furnitures
       // Return the index of the failing furniture, or -1 if succed
-      public static int TryClimbing(CatData p_cat, List<FurnitureDropSlotBehaviour> p_lstFurniture)
+      public static int TryClimbing(CatController p_cat, List<FurnitureDropSlotBehaviour> p_lstFurniture)
       {
          return TryClimbingV1(p_cat, p_lstFurniture);
       }
 
       #region V1
 
-      private static float GetProbabilityOfFallingV1(CatData p_cat, List<FurnitureDropSlotBehaviour> p_lstFurniture)
+      private static float GetProbabilityOfFallingV1(CatController p_cat, List<FurnitureDropSlotBehaviour> p_lstFurniture)
       {
          /* ### RULE 1 ### */
          // You can't fall from the first furniture
@@ -48,9 +48,9 @@ namespace FFF.Utils
          /* ### RULE 3 ### */
          // If cat's stamina is lower than the stability (modified or not), we add (1 - stamina / staminaMax) / 10 to the probability of falling
 
-         if (p_cat.Stamina < l_dCurrentStability)
+         if (p_cat.Data.Stamina < l_dCurrentStability)
          {
-             l_fProbabilityOfFalling += (1f - (float) p_cat.Stamina / (float) p_cat.StaminaMax) / 10f;
+             l_fProbabilityOfFalling += (1f - (float) p_cat.Data.Stamina / (float) p_cat.Data.StaminaMax) / 10f;
          }
 
          /* ### RULE 4 ### */
@@ -61,7 +61,7 @@ namespace FFF.Utils
          // If the stabilities are different we add 1 / stability to the probability of falling
          return Mathf.Min(l_fProbabilityOfFalling + 1f / l_dCurrentStability, 1f);
       }
-      private static int TryClimbingV1(CatData p_cat, List<FurnitureDropSlotBehaviour> p_lstFurniture)
+      private static int TryClimbingV1(CatController p_cat, List<FurnitureDropSlotBehaviour> p_lstFurniture)
       {
          for (int i = 0; i < p_lstFurniture.Count; i++)
          {

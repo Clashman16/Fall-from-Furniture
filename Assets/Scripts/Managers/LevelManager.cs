@@ -63,7 +63,7 @@ namespace FFF.Managers
                    ));
 
                // Decrease stamina
-               m_cat.Stamina--;
+               m_cat.Data.Stamina--;
 
                foreach (Transform l_draggableTrf in m_draggableFurnitureLayoutGroup.transform)
                {
@@ -80,6 +80,8 @@ namespace FFF.Managers
                if(IsCheckingResult)
                {
                   FurnitureUtils.TryClimbing(m_cat, m_lstStackedFurniture);
+
+                  m_cat.IsWalking = true;
                }
             }
             else
@@ -103,7 +105,7 @@ namespace FFF.Managers
 
       #endregion
 
-      CatData m_cat;
+      public CatController m_cat;
 
       private void Start()
       {
@@ -121,7 +123,7 @@ namespace FFF.Managers
             l_goDraggable.GetComponent<DraggableFurnitureBehaviour>().Init(l_lstFurniture[l_i], this);
          }
 
-         m_cat = new CatData(l_lstFurniture.Length);
+         m_cat.Init(l_lstFurniture.Length);
 
          m_lstStackedFurniture = new List<FurnitureDropSlotBehaviour>();
       }
