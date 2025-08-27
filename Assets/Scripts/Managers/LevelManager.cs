@@ -62,6 +62,9 @@ namespace FFF.Managers
                    Mathf.Min(2, m_lstStackedFurniture.Count)
                    ));
 
+               // Decrease stamina
+               m_cat.Stamina--;
+
                foreach (Transform l_draggableTrf in m_draggableFurnitureLayoutGroup.transform)
                {
                   l_draggableTrf.GetComponent<DraggableFurnitureBehaviour>().IsWaitingSelection = true;

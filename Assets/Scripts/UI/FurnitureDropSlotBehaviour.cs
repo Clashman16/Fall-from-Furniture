@@ -1,5 +1,6 @@
 using FFF.Behaviours.Interactable;
 using FFF.Managers;
+using System.Globalization;
 using TMPro;
 using UnityEngine.EventSystems;
 
@@ -16,7 +17,7 @@ namespace FFF.Behaviours.UI
          {
             m_currentProbability = value;
 
-            m_probabilityDisplay.text = m_currentProbability.ToString();
+            m_probabilityDisplay.text = m_currentProbability.ToString("P2", CultureInfo.InvariantCulture);
          }
       }
 
