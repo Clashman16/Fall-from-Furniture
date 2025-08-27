@@ -91,8 +91,7 @@ namespace FFF.Managers
 
                   FurnitureUtils.TryClimbing(m_cat, l_lstAllStackedFurniture);
 
-                  m_cat.Walk();
->>>>>>> 095537e (WIP : Add Cat and Animate it)
+                  m_cat.IsWalking = true;
                }
             }
             else
