@@ -30,8 +30,8 @@ namespace FFF.Utils
          // You can't fall from the first furniture
          if (p_lstFurniture.Count < 2) { return 0f; }
 
-         FurnitureDropSlotBehaviour p_current = p_lstFurniture[0];
-         FurnitureDropSlotBehaviour p_previous = p_lstFurniture[1];
+         FurnitureDropSlotBehaviour p_previous = p_lstFurniture[0];
+         FurnitureDropSlotBehaviour p_current = p_lstFurniture[1];
 
          int l_dCurrentStability = p_current.CurrentStability;
 
