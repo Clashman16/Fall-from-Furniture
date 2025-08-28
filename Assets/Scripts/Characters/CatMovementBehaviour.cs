@@ -41,6 +41,16 @@ public class CatMovementBehaviour : MonoBehaviour
     m_movement = p_movement;
   }
 
+  private void EndMovement()
+  {
+    m_movement = Movement.STATIC;
+
+    if (m_callback != null)
+    {
+      m_callback.Invoke();
+    }
+  }
+
   #region Walk
 
   public float m_fWalkingSpeed = 3.0f;
@@ -56,12 +66,7 @@ public class CatMovementBehaviour : MonoBehaviour
 
     if (l_targetReached)
     {
-      m_movement = Movement.STATIC;
-
-      if (m_callback != null)
-      {
-        m_callback.Invoke();
-      }
+      EndMovement();
     }
   }
 
@@ -80,15 +85,9 @@ public class CatMovementBehaviour : MonoBehaviour
   {
     bool l_targetReached = MoveTowardsTarget(m_fClimbingSpeed);
 
-    // Check if the position of the cube and sphere are approximately equal.
     if (l_targetReached)
     {
-      m_movement = Movement.STATIC;
-
-      if (m_callback != null)
-      {
-        m_callback.Invoke();
-      }
+      EndMovement();
     }
   }
 
@@ -124,12 +123,7 @@ public class CatMovementBehaviour : MonoBehaviour
     // Check if the cat y position is under the ground
     if (transform.position.y < m_fGroundY)
     {
-      m_movement = Movement.STATIC;
-
-      if (m_callback != null)
-      {
-        m_callback.Invoke();
-      }
+      EndMovement();
     }
   }
 
