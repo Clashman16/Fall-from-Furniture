@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace FFF.Characters
 {
-  public class CatBehavior : MonoBehaviour
+  public class CatBehaviour : MonoBehaviour
   {
     #region Data
 

@@ -107,7 +107,7 @@ namespace FFF.Managers
 
       #endregion
 
-      public CatBehavior m_cat;
+      public CatBehaviour m_cat;
 
       private void Start()
       {
