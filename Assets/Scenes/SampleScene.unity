@@ -1214,6 +1214,7 @@ GameObject:
   - component: {fileID: 1375813476}
   - component: {fileID: 1375813477}
   - component: {fileID: 1375813478}
+  - component: {fileID: 1375813479}
   m_Layer: 5
   m_Name: Cat
   m_TagString: Untagged
@@ -1275,13 +1276,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 66b460d0765064844969bf1a6a5be8cb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_speed: 3
-  m_target: {fileID: 271312450}
-  m_fSpeedClimbing: 1.5
-  m_fCurrentFallingSpeed: 5
-  m_fMaxSpeed: 20
-  m_fAcceleration: 5
-  m_food: {fileID: 0}
+  m_furnitures: {fileID: 271312450}
+  m_food: {fileID: 417367954}
 --- !u!114 &1375813478
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1294,6 +1290,23 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 03234be43b9e16d41b4dcd85b30ea95e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &1375813479
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1375813474}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: adb5d5cd15954f5428c81342e3290a24, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_fWalkingSpeed: 3
+  m_fClimbingSpeed: 1.5
+  m_fCurrentFallingSpeed: 5
+  m_fMaxFallingSpeed: 20
+  m_fFallingAcceleration: 5
 --- !u!1 &1778771816
 GameObject:
   m_ObjectHideFlags: 0

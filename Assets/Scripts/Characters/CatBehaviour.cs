@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using static UnityEngine.Rendering.DebugUI;
 
 namespace FFF.Characters
 {
@@ -22,52 +23,25 @@ namespace FFF.Characters
 
     #endregion
 
-    #region Animation
+    #region Movements and Animations
 
-    private CatAnimationController m_catAnimationController;
+    private CatAnimationController m_animationController;
+
+    private CatMovementBehaviour m_movementBehaviour;
 
     #region Walk
-    
-    private bool m_bIsWalking;
-    public bool IsWalking
+
+    public GameObject m_furnitures;
+    public void WalkToFurnitures()
     {
-      get => m_bIsWalking;
-      set
-      {
-        m_bIsWalking = value;
-        m_catAnimationController.ToggleWalk(value);
-      }
+      m_animationController.ToggleWalk(true);
+      m_movementBehaviour.WalkTo(new Vector2(m_furnitures.transform.position.x - 1.5f, transform.position.y), OnFurnituresReached);
     }
 
-    public float m_speed = 3.0f;
-
-    public GameObject m_target;
-
-    private Vector2 m_targetPosition;
-    private Vector2 TargetPosition
+    public void OnFurnituresReached()
     {
-      get
-      {
-        if(m_targetPosition.Equals(Vector2.zero))
-        {
-          m_targetPosition = new Vector2(m_target.transform.position.x - 1.5f, transform.position.y);
-        }
-        return m_targetPosition;
-      }
-    }
-
-    private void Walk()
-    {
-        // Move our position a step closer to the target.
-        var step =  m_speed * Time.deltaTime; // calculate distance to move
-        transform.position = Vector2.MoveTowards(transform.position, TargetPosition, step);
-
-        // Check if the position of the cube and sphere are approximately equal.
-        if (Vector2.Distance(transform.position,TargetPosition) < 0.001f)
-        {
-            IsWalking = false;
-            ClimbToNext();
-        }
+      m_animationController.ToggleWalk(false);
+      ClimbToNext();
     }
 
     #endregion
@@ -86,51 +60,31 @@ namespace FFF.Characters
       }
     }
 
-    private bool m_bIsClimbing;
-    public bool IsClimbing
-    {
-      get => m_bIsClimbing;
-      set
-      {
-        m_bIsClimbing = value;
-        m_catAnimationController.ToggleClimb(value);
-      }
-    }
-
-    public float m_fSpeedClimbing = 1.5f;
-
     private void ClimbToNext()
     {
       m_currentFurnitureIndex++;
-      if(m_currentFurnitureIndex < m_target.transform.childCount)
+      if (m_currentFurnitureIndex < m_furnitures.transform.childCount)
       {
-        m_targetPosition = new Vector2(transform.position.x, m_target.transform.GetChild(m_currentFurnitureIndex).transform.position.y);
-        IsClimbing = true;
-      } else
+        m_animationController.ToggleClimb(true);
+        m_movementBehaviour.ClimbTo(new Vector2(transform.position.x, m_furnitures.transform.GetChild(m_currentFurnitureIndex).transform.position.y), OnFurnitureClimbed);
+      }
+      else
       {
         Win();
       }
     }
 
-    public void Climb()
+    public void OnFurnitureClimbed()
     {
-      // Move our position a step closer to the target.
-      var step =  m_fSpeedClimbing * Time.deltaTime; // calculate distance to move
-      transform.position = Vector2.MoveTowards(transform.position, m_targetPosition, step);
+      m_animationController.ToggleClimb(false);
 
-      // Check if the position of the cube and sphere are approximately equal.
-      if (Vector2.Distance(transform.position,m_targetPosition) < 0.001f)
+      if (m_fallingIndex < 0 || m_currentFurnitureIndex < m_fallingIndex)
       {
-          IsClimbing = false;
-
-          if(m_fallingIndex < 0 || m_currentFurnitureIndex < m_fallingIndex)
-          {
-            ClimbToNext();
-          }
-          else
-          {
-            TriggerFallingAnimation();
-          }
+        ClimbToNext();
+      }
+      else
+      {
+        TriggerFallingAnimation();
       }
     }
 
@@ -138,56 +92,15 @@ namespace FFF.Characters
 
     #region Fall
 
-    private bool m_bIsFalling = false;
-    
     // Called in animation CatFall
     public void StartFalling()
     {
-      m_bIsFalling = true;
+      m_movementBehaviour.FallToGround(null);
     }
 
     private void TriggerFallingAnimation()
     {
-      m_catAnimationController.TriggerFall();
-    }
-
-    public float m_fCurrentFallingSpeed = 5f;
-    public float m_fMaxSpeed = 20f;
-    public float m_fAcceleration = 5f;
-    private Vector2 m_vGroundPosition;
-    private Vector2 GroundPosition
-    {
-      get
-      {
-        if(m_vGroundPosition.Equals(Vector2.zero))
-        {
-          m_vGroundPosition = new Vector2(transform.position.x, -5);
-        }
-        return m_vGroundPosition;
-      }
-      set => m_vGroundPosition = value;
-    }
-
-    private void Fall()
-    {
-      if (m_fCurrentFallingSpeed < m_fMaxSpeed)
-      {
-          m_fCurrentFallingSpeed += Mathf.Min(m_fAcceleration * Time.deltaTime, 1);    // limit to 1 for "full speed"
-      }
-      else
-      {
-            m_fCurrentFallingSpeed = m_fMaxSpeed;
-      }
-
-      // Move our position a step closer to the target.
-      var step =  m_fCurrentFallingSpeed * Time.deltaTime; // calculate distance to move
-      transform.position = Vector2.MoveTowards(transform.position, GroundPosition, step);
-
-      // Check if the position of the cube and sphere are approximately equal.
-      if (transform.position.y < -5)
-      {
-        m_bIsFalling = false;
-      }
+      m_animationController.TriggerFall();
     }
 
     #endregion
@@ -198,44 +111,18 @@ namespace FFF.Characters
 
     public void Win()
     {
-      m_catAnimationController.TriggerWin();
+      m_animationController.TriggerWin();
     }
 
     #endregion
 
     #endregion
-
-    private bool MoveTowardsTarget(float p_fSpeed)
-    {
-      // Move our position a step closer to the target.
-      var step =  p_fSpeed * Time.deltaTime; // calculate distance to move
-      transform.position = Vector2.MoveTowards(transform.position, m_targetPosition, step);
-
-      return Vector2.Distance(transform.position,m_targetPosition) < 0.001f;
-    }
 
     // Start is called before the first frame update
     void Start()
     {
-        m_catAnimationController = GetComponent<CatAnimationController>();
-    }
-
-    void Update()
-    {
-      if(m_bIsWalking)
-      {
-        Walk();
-      }
-
-      if(m_bIsClimbing)
-      {
-        Climb();
-      }
-
-      if(m_bIsFalling)
-      {
-        Fall();
-      }
+      m_animationController = GetComponent<CatAnimationController>();
+      m_movementBehaviour = GetComponent<CatMovementBehaviour>();
     }
   }
 }

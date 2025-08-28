@@ -79,7 +79,7 @@ namespace FFF.Managers
 
                if(IsCheckingResult)
                {
-                  m_cat.IsWalking = true;
+                  m_cat.WalkToFurnitures();
 
                   m_cat.FallingIndex = FurnitureUtils.TryClimbing(m_cat, m_lstStackedFurniture);
 

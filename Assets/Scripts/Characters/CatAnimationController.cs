@@ -20,7 +20,7 @@ public class CatAnimationController : MonoBehaviour
 
   private void ToggleAnimation(string p_animationName, bool p_isAnimation)
   {
-    if(m_animator != null)
+    if (m_animator != null)
     {
       m_animator.SetBool(p_animationName, p_isAnimation);
     }
@@ -42,7 +42,7 @@ public class CatAnimationController : MonoBehaviour
 
   private void TriggerAnimation(string p_animationName)
   {
-    if(m_animator != null)
+    if (m_animator != null)
     {
       m_animator.SetTrigger(p_animationName);
     }
@@ -53,6 +53,6 @@ public class CatAnimationController : MonoBehaviour
   // Start is called before the first frame update
   void Start()
   {
-      m_animator = GetComponent<Animator>();
+    m_animator = GetComponent<Animator>();
   }
 }
