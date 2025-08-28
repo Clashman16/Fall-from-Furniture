@@ -5,7 +5,7 @@ using static UnityEngine.GraphicsBuffer;
 
 namespace FFF.Characters
 {
-  public class CatController : MonoBehaviour
+  public class CatBehavior : MonoBehaviour
   {
     #region Data
 
@@ -204,6 +204,8 @@ namespace FFF.Characters
 
     #region Win
 
+    public GameObject m_food;
+
     public void Win()
     {
       if(m_animator != null)
@@ -213,6 +215,23 @@ namespace FFF.Characters
     }
 
     #endregion
+
+    #endregion
+
+    private bool MoveTowardsTarget(float p_fSpeed)
+    {
+      // Move our position a step closer to the target.
+      var step =  p_fSpeed * Time.deltaTime; // calculate distance to move
+      transform.position = Vector2.MoveTowards(transform.position, m_targetPosition, step);
+
+      return Vector2.Distance(transform.position,m_targetPosition) < 0.001f;
+    }
+
+    // Start is called before the first frame update
+    void Start()
+    {
+        m_animator = GetComponent<Animator>();
+    }
 
     void Update()
     {
@@ -230,14 +249,6 @@ namespace FFF.Characters
       {
         Fall();
       }
-    }
-
-    #endregion
-
-    // Start is called before the first frame update
-    void Start()
-    {
-        m_animator = GetComponent<Animator>();
     }
   }
 }
