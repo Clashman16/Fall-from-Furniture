@@ -982,9 +982,9 @@ MonoBehaviour:
   m_speed: 3
   m_target: {fileID: 271312450}
   m_fSpeedClimbing: 1.5
-  m_fCurrentSpeed: 2
-  m_fMaxSpeed: 15
-  m_fAcceleration: 2
+  m_fCurrentFallingSpeed: 5
+  m_fMaxSpeed: 20
+  m_fAcceleration: 5
 --- !u!1 &1778771816
 GameObject:
   m_ObjectHideFlags: 0
