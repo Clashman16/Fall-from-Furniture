@@ -1213,6 +1213,7 @@ GameObject:
   - component: {fileID: 1375813475}
   - component: {fileID: 1375813476}
   - component: {fileID: 1375813477}
+  - component: {fileID: 1375813478}
   m_Layer: 5
   m_Name: Cat
   m_TagString: Untagged
@@ -1280,6 +1281,19 @@ MonoBehaviour:
   m_fCurrentFallingSpeed: 5
   m_fMaxSpeed: 20
   m_fAcceleration: 5
+  m_food: {fileID: 0}
+--- !u!114 &1375813478
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1375813474}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 03234be43b9e16d41b4dcd85b30ea95e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1778771816
 GameObject:
   m_ObjectHideFlags: 0

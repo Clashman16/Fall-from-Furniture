@@ -1,7 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using static UnityEngine.GraphicsBuffer;
 
 namespace FFF.Characters
 {
@@ -25,7 +24,7 @@ namespace FFF.Characters
 
     #region Animation
 
-    private Animator m_animator;
+    private CatAnimationController m_catAnimationController;
 
     #region Walk
     
@@ -36,10 +35,7 @@ namespace FFF.Characters
       set
       {
         m_bIsWalking = value;
-        if(m_animator != null)
-        {
-          m_animator.SetBool("IsWalking", value);
-        }
+        m_catAnimationController.ToggleWalk(value);
       }
     }
 
@@ -97,10 +93,7 @@ namespace FFF.Characters
       set
       {
         m_bIsClimbing = value;
-        if(m_animator != null)
-        {
-          m_animator.SetBool("IsClimbing", value);
-        }
+        m_catAnimationController.ToggleClimb(value);
       }
     }
 
@@ -155,10 +148,7 @@ namespace FFF.Characters
 
     private void TriggerFallingAnimation()
     {
-      if(m_animator != null)
-      {
-        m_animator.SetTrigger("TrFall");
-      }
+      m_catAnimationController.TriggerFall();
     }
 
     public float m_fCurrentFallingSpeed = 5f;
@@ -208,10 +198,7 @@ namespace FFF.Characters
 
     public void Win()
     {
-      if(m_animator != null)
-      {
-        m_animator.SetTrigger("TrWin");
-      }
+      m_catAnimationController.TriggerWin();
     }
 
     #endregion
@@ -230,7 +217,7 @@ namespace FFF.Characters
     // Start is called before the first frame update
     void Start()
     {
-        m_animator = GetComponent<Animator>();
+        m_catAnimationController = GetComponent<CatAnimationController>();
     }
 
     void Update()
