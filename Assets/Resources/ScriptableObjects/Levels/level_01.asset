@@ -14,5 +14,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_lstFurnitures:
   - {fileID: 11400000, guid: a98433238f145c64dbf89b62e1da4568, type: 2}
-  - {fileID: 11400000, guid: a2b71ed50099dd04d9f8ba09e23d2203, type: 2}
+  - {fileID: 11400000, guid: 1475d32b82cb8fe4abd70fb44a18746c, type: 2}
   - {fileID: 11400000, guid: b9a235fc69eb1004695d5f435dfd8852, type: 2}
