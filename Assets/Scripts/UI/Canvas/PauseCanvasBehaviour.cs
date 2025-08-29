@@ -12,10 +12,10 @@ namespace HypNot.Behaviours.UI
       {
          if (m_backgroundMusic == null)
          {
-            //m_backgroundMusic = GameObject.FindGameObjectWithTag(TagDatabaseSingleton.Instance.BackgroundMusicPlayerTag).GetComponent<AudioSource>();
+            m_backgroundMusic = GameObject.FindGameObjectWithTag(TagDatabaseSingleton.Instance.BackgroundMusicPlayerTag).GetComponent<AudioSource>();
          }
 
-         //m_backgroundMusic.Pause();
+         m_backgroundMusic.Pause();
 
          base.Reset();
       }
