@@ -9,12 +9,12 @@ namespace FFF.Behaviours.UI
 
       public override void Reset()
       {
-         //if (m_backgroundMusic == null)
-         //{
-         //   m_backgroundMusic = GameObject.FindGameObjectWithTag(TagDatabaseSingleton.Instance.BackgroundMusicPlayerTag).GetComponent<AudioSource>();
-         //}
-         //
-         //m_backgroundMusic.Stop();
+         if (m_backgroundMusic == null)
+         {
+            m_backgroundMusic = GameObject.FindGameObjectWithTag(TagDatabaseSingleton.Instance.BackgroundMusicPlayerTag).GetComponent<AudioSource>();
+         }
+         
+         m_backgroundMusic.Stop();
 
          base.Reset();
       }

@@ -17,24 +17,24 @@ namespace FFF.Behaviours.UI
 
       public override void Reset()
       {
-         //if(m_backgroundMusic == null)
-         //{
-         //   m_backgroundMusic = GameObject.FindGameObjectWithTag(TagDatabaseSingleton.Instance.BackgroundMusicPlayerTag).GetComponent<AudioSource>();
-         //}
-         //
-         //m_backgroundMusic.volume = PlayerSaveSingleton.Instance.BackgroundMusicVolume;
-         //
-         //if (!m_backgroundMusic.isPlaying)
-         //{
-         //   if (m_lastGameScreen != EGameScreen.PAUSE_SCREEN)
-         //   {
-         //      m_backgroundMusic.Play();
-         //   }
-         //   else
-         //   {
-         //      m_backgroundMusic.UnPause();
-         //   }
-         //}
+         if(m_backgroundMusic == null)
+         {
+            m_backgroundMusic = GameObject.FindGameObjectWithTag(TagDatabaseSingleton.Instance.BackgroundMusicPlayerTag).GetComponent<AudioSource>();
+         }
+         
+         m_backgroundMusic.volume = PlayerSaveSingleton.Instance.BackgroundMusicVolume;
+         
+         if (!m_backgroundMusic.isPlaying)
+         {
+            if (m_lastGameScreen != EGameScreen.PAUSE_SCREEN)
+            {
+               m_backgroundMusic.Play();
+            }
+            else
+            {
+               m_backgroundMusic.UnPause();
+            }
+         }
       }
    }
 }
