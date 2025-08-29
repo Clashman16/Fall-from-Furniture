@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: e16c730be77141c4a892be86d4512bca, type: 3}
-  m_Name: closet
+  m_Name: 3_chair
   m_EditorClassIdentifier: 
-  m_dStability: 5
-  m_imgAppearance: {fileID: 21300000, guid: 2fab034270fc36543a5f9f82d2b2c3f4, type: 3}
+  m_dStability: 3
+  m_imgAppearance: {fileID: 21300000, guid: 60c09d4974222bc45bbf7d4deddac25b, type: 3}
