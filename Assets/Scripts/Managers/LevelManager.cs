@@ -48,8 +48,6 @@ namespace FFF.Managers
 
                m_lastSelectedInteractable.gameObject.SetActive(false);
 
-               // TODO (A1) : Get previous furniture (Move the furniture object instead of only changing a sprite ?)
-
                FurnitureDropSlotBehaviour l_dropSlot = (FurnitureDropSlotBehaviour)value;
 
                l_dropSlot.CurrentStability = ((DraggableFurnitureBehaviour)m_lastSelectedInteractable).Stability;
@@ -107,7 +105,7 @@ namespace FFF.Managers
 
       #endregion
 
-      public CatBehaviour m_cat;
+      private CatBehaviour m_cat;
 
       private void Start()
       {
@@ -125,6 +123,7 @@ namespace FFF.Managers
             l_goDraggable.GetComponent<DraggableFurnitureBehaviour>().Init(l_lstFurniture[l_i], this);
          }
 
+         m_cat = GetComponentInChildren<CatBehaviour>();
          m_cat.Init(l_lstFurniture.Length);
 
          m_lstStackedFurniture = new List<FurnitureDropSlotBehaviour>();

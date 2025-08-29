@@ -95,16 +95,13 @@ public class CatMovementBehaviour : MonoBehaviour
 
   #region Fall
 
-  // Arbitrary value defined as 'aproximately the ground'
-  private readonly float m_fGroundY = -5f;
-
   public float m_fCurrentFallingSpeed = 5f;
   public float m_fMaxFallingSpeed = 20f;
   public float m_fFallingAcceleration = 5f;
 
-  public void FallToGround(System.Action p_callback)
+  public void FallTo(Vector2 p_targetPosition, System.Action p_callback)
   {
-    InitMovement(new Vector2(transform.position.x, m_fGroundY), Movement.FALL, p_callback);
+    InitMovement(p_targetPosition, Movement.FALL, p_callback);
   }
 
   private void Fall()
@@ -121,7 +118,7 @@ public class CatMovementBehaviour : MonoBehaviour
     MoveTowardsTarget(m_fCurrentFallingSpeed, false);
 
     // Check if the cat y position is under the ground
-    if (transform.position.y < m_fGroundY)
+    if (transform.position.y < m_targetPosition.y)
     {
       EndMovement();
     }

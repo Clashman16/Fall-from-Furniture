@@ -29,13 +29,16 @@ namespace FFF.Characters
 
     private CatMovementBehaviour m_movementBehaviour;
 
+    public RectTransform m_furnitures;
+
+    public GameObject m_ground;
+
     #region Walk
 
-    public GameObject m_furnitures;
     public void WalkToFurnitures()
     {
       m_animationController.ToggleWalk(true);
-      m_movementBehaviour.WalkTo(new Vector2(m_furnitures.transform.position.x - 1.5f, transform.position.y), OnFurnituresReached);
+      m_movementBehaviour.WalkTo(new Vector2(m_furnitures.transform.position.x - RectTransformUtils.GetAbsoluteSize(m_furnitures).x * 0.75f, transform.position.y), OnFurnituresReached);
     }
 
     public void OnFurnituresReached()
@@ -95,7 +98,7 @@ namespace FFF.Characters
     // Called in animation CatFall
     public void StartFalling()
     {
-      m_movementBehaviour.FallToGround(null);
+      m_movementBehaviour.FallTo(new Vector2(transform.position.x, m_ground.transform.position.y), null);
     }
 
     private void TriggerFallingAnimation()
