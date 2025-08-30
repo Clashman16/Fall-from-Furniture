@@ -73,7 +73,7 @@ namespace FFF.Characters
       }
       else
       {
-        Win();
+        ClimbToFood();
       }
     }
 
@@ -112,7 +112,31 @@ namespace FFF.Characters
 
     public GameObject m_food;
 
-    public void Win()
+    private void ClimbToFood()
+    {
+      m_animationController.ToggleClimb(true);
+      m_movementBehaviour.ClimbTo(new Vector2(transform.position.x, m_food.transform.position.y), OnFoodHeightReached);
+    }
+
+    private void OnFoodHeightReached()
+    {
+      m_animationController.ToggleClimb(false);
+      WalkToFood();
+    }
+
+    private void WalkToFood()
+    {
+      m_animationController.ToggleWalk(true);
+      m_movementBehaviour.WalkTo(new Vector2(m_food.transform.position.x, transform.position.y), OnFoodReached);
+    }
+
+    private void OnFoodReached()
+    {
+      m_animationController.ToggleWalk(false);
+      Win();
+    }
+
+    private void Win()
     {
       m_animationController.TriggerWin();
     }
