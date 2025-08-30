@@ -2,6 +2,7 @@ using FFF.Utils;
 using UnityEngine;
 using FFF.Player;
 using FFF.Managers;
+using FFF.Sounds;
 
 namespace FFF.Behaviours.UI
 {

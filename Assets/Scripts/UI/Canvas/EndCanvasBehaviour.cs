@@ -1,5 +1,5 @@
 using FFF.Behaviours.UI;
-using FFF.Player;
+using FFF.Sounds;
 using FFF.Utils;
 using UnityEngine;
 
