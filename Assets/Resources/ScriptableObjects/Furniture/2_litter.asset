@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: e16c730be77141c4a892be86d4512bca, type: 3}
-  m_Name: 2_2
+  m_Name: 2_litter
   m_EditorClassIdentifier: 
   m_dStability: 2
-  m_imgAppearance: {fileID: 21300000, guid: b89c8893edf27a243a80607dc4ba0396, type: 3}
+  m_imgAppearance: {fileID: 21300000, guid: 0bcff8d4b4589de4c8b8ef13999dbbdb, type: 3}
