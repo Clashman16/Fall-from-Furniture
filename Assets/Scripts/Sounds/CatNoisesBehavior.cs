@@ -1,9 +1,9 @@
 using System.Collections;
 using UnityEngine;
 
-public class CatNoisesManager : MonoBehaviour
+public class CatNoisesBehavior : MonoBehaviour
 {
-  private AudioSource m_AudioSource;
+  private AudioSource m_audioSource;
 
   public AudioClip[] m_lstCatSounds;
 
@@ -21,7 +21,7 @@ public class CatNoisesManager : MonoBehaviour
 
   private void PlayRandomSound()
   {
-    m_AudioSource.PlayOneShot(m_lstCatSounds[m_randomIndexWithoutRepetition.Next]);
+    m_audioSource.PlayOneShot(m_lstCatSounds[m_randomIndexWithoutRepetition.Next]);
   }
 
   private IEnumerator CoPlayDelayedClip(float p_delay)
@@ -51,7 +51,7 @@ public class CatNoisesManager : MonoBehaviour
   // Start is called before the first frame update
   void Start()
   {
-    m_AudioSource = GetComponent<AudioSource>();
+    m_audioSource = GetComponent<AudioSource>();
     m_randomIndexWithoutRepetition = new RandomIndexWithoutRepetition(m_lstCatSounds.Length);
   }
 }

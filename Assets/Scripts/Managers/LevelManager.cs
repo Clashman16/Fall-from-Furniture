@@ -45,6 +45,8 @@ namespace FFF.Managers
          {
             if(value.GetType() == typeof(FurnitureDropSlotBehaviour))
             {
+               m_sFXBehavior.PlayFX(ESoundFX.FURNITURE_DROPPED);
+
                value.GetComponent<Image>().sprite = ((DraggableFurnitureBehaviour)m_lastSelectedInteractable).Data.Appearance;
 
                m_lastSelectedInteractable.gameObject.SetActive(false);
@@ -78,9 +80,9 @@ namespace FFF.Managers
 
                if(IsCheckingResult)
                {
-                  m_cat.WalkToFurnitures();
-
                   m_cat.FallingIndex = FurnitureUtils.TryClimbing(m_cat, m_lstStackedFurniture);  
+                  
+                  m_cat.TryToGetFood(OnFall, OnWin);
                }
             }
             else
@@ -105,6 +107,18 @@ namespace FFF.Managers
       #endregion
 
       private CatBehaviour m_cat;
+
+      private SFXBehavior m_sFXBehavior;
+
+      public void OnFall()
+      {
+        // TODO
+      }
+
+      public void OnWin()
+      {
+        m_sFXBehavior.PlayFX(ESoundFX.WIN);
+      }
 
       public void LaunchLevel()
       {
@@ -149,6 +163,8 @@ namespace FFF.Managers
          m_cat.Init(l_lstFurniture.Length);
 
          m_lstStackedFurniture = new List<FurnitureDropSlotBehaviour>();
+
+         m_sFXBehavior = GameObject.FindGameObjectWithTag(TagDatabaseSingleton.Instance.SFXPlayerTag).GetComponent<SFXBehavior>();
       }
 
       private void ResetLevel()

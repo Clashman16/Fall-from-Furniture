@@ -8,7 +8,7 @@ namespace FFF.Behaviours.UI
    public class GameCanvasBehaviour : CanvasBehaviour
    {
       private AudioSource m_backgroundMusic;
-      private CatNoisesManager m_catNoises;
+      private CatNoisesBehavior m_catNoises;
 
       private EGameScreen m_lastGameScreen;
 
@@ -42,7 +42,7 @@ namespace FFF.Behaviours.UI
 
          if (m_catNoises == null)
          {
-            m_catNoises = GameObject.FindGameObjectWithTag(TagDatabaseSingleton.Instance.SFXPlayerTag).GetComponent<CatNoisesManager>();
+            m_catNoises = GameObject.FindGameObjectWithTag(TagDatabaseSingleton.Instance.SFXPlayerTag).GetComponent<CatNoisesBehavior>();
          }
 
          m_catNoises.Play();
