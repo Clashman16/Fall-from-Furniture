@@ -11,6 +11,7 @@ namespace FFF.Behaviours.UI
    public class FurnitureDropSlotBehaviour : DashedLineBorderBehaviour, IDropHandler
    {
       static private Gradient s_gradient;
+
       private float m_currentProbability;
 
       public float CurrentProbability
@@ -37,6 +38,8 @@ namespace FFF.Behaviours.UI
       }
 
       private TextMeshProUGUI m_probabilityDisplay;
+
+      private bool IsSlotOccupied => FurnitureDisplay.sprite != null;
 
       public override void Init(LevelManager p_manager)
       {
@@ -65,7 +68,8 @@ namespace FFF.Behaviours.UI
       public void OnDrop(PointerEventData p_eventData)
       {
          DraggableFurnitureBehaviour l_draggable = p_eventData.pointerDrag.GetComponent<DraggableFurnitureBehaviour>();
-         if (l_draggable != null && LevelManager.LastSelectedInteractable == l_draggable)
+         if (l_draggable != null && LevelManager.LastSelectedInteractable == l_draggable
+            && IsWaitingSelection && !IsSlotOccupied)
          {
             LevelManager.LastSelectedInteractable = this;
          }

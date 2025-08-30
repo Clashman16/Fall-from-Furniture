@@ -17,6 +17,11 @@ namespace FFF.Behaviours.UI
 
       private Image m_imgFurnitureDisplay;
 
+      public Image FurnitureDisplay
+      {
+         get => m_imgFurnitureDisplay;
+      }
+
       private bool m_isWaitingSelection;
 
       private Button m_button;
