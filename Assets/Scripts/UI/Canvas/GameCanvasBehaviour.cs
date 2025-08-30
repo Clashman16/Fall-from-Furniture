@@ -1,6 +1,7 @@
 using FFF.Utils;
 using UnityEngine;
 using FFF.Player;
+using FFF.Managers;
 
 namespace FFF.Behaviours.UI
 {
@@ -14,6 +15,8 @@ namespace FFF.Behaviours.UI
       {
          set => m_lastGameScreen = value;
       }
+
+      private LevelManager m_levelManager;
 
       public override void Reset()
       {
@@ -35,6 +38,13 @@ namespace FFF.Behaviours.UI
                m_backgroundMusic.UnPause();
             }
          }
+
+         if(m_levelManager == null)
+         {
+            m_levelManager = GetComponent<LevelManager>();
+         }
+
+         m_levelManager.LaunchLevel();
       }
    }
 }

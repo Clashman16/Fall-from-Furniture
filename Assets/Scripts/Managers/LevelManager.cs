@@ -7,7 +7,6 @@ using FFF.Utils;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-using System.Collections;
 
 namespace FFF.Managers
 {
@@ -23,13 +22,15 @@ namespace FFF.Managers
 
       [SerializeField] private HorizontalLayoutGroup m_draggableFurnitureLayoutGroup;
 
+      private int m_levelId;
+
       #endregion
 
       #region Checking result
 
-      private int m_dFurnitureCount;
+      private int m_dFurnitureCount = 0;
 
-      public bool IsCheckingResult => m_dFurnitureCount == m_lstStackedFurniture.Count;
+      public bool IsCheckingResult => m_lstStackedFurniture != null && m_dFurnitureCount == m_lstStackedFurniture.Count;
 
       #endregion
 
@@ -81,9 +82,7 @@ namespace FFF.Managers
                {
                   m_cat.IsWalking = true;
 
-                  m_cat.FallingIndex = FurnitureUtils.TryClimbing(m_cat, m_lstStackedFurniture);
-
-                  
+                  m_cat.FallingIndex = FurnitureUtils.TryClimbing(m_cat, m_lstStackedFurniture);  
                }
             }
             else
@@ -109,7 +108,30 @@ namespace FFF.Managers
 
       public CatController m_cat;
 
-      private void Start()
+      public void LaunchLevel()
+      {
+         if(PlayerSaveSingleton.Instance.CurrentLevelId == m_levelId)
+         {
+            if(m_dFurnitureCount == 0)
+            {
+               InitLevel();
+            }
+            else
+            {
+               ResetLevel();
+            }
+         }
+         else
+         {
+            ClearLevel();
+
+            InitLevel();
+
+            m_levelId = PlayerSaveSingleton.Instance.CurrentLevelId;
+         }        
+      }
+
+      private void InitLevel()
       {
          ScriptableFurnitureData[] l_lstFurniture = PlayerSaveSingleton.Instance.CurentLevelData;
 
@@ -128,6 +150,38 @@ namespace FFF.Managers
          m_cat.Init(l_lstFurniture.Length);
 
          m_lstStackedFurniture = new List<FurnitureDropSlotBehaviour>();
+      }
+
+      private void ResetLevel()
+      {
+         for (int l_i = 0; l_i < m_dFurnitureCount; l_i++)
+         {
+            Transform l_trfSlotLayoutGroup = m_furnitureSlotLayoutGroup.transform;
+            if (l_i < l_trfSlotLayoutGroup.childCount)
+            {
+               Destroy(l_trfSlotLayoutGroup.GetChild(l_i).gameObject);
+            }
+
+            m_draggableFurnitureLayoutGroup.transform.GetChild(l_i).GetComponent<DraggableFurnitureBehaviour>().Reset();
+         }
+
+         m_cat.Init(m_dFurnitureCount);
+      }
+
+      private void ClearLevel()
+      {
+         for(int l_i = 0; l_i < m_dFurnitureCount; l_i++)
+         {
+            Transform l_trfSlotLayoutGroup = m_furnitureSlotLayoutGroup.transform;
+            if (l_i < l_trfSlotLayoutGroup.childCount)
+            {
+               Destroy(l_trfSlotLayoutGroup.GetChild(l_i).gameObject);
+            }
+            
+            Destroy(m_draggableFurnitureLayoutGroup.transform.GetChild(l_i).gameObject);
+         }
+
+         m_lstStackedFurniture.Clear();
       }
    }
 }

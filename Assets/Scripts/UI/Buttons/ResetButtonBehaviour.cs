@@ -1,7 +1,6 @@
-
-
 using FFF.Player;
 using FFF.Utils;
+using UnityEngine;
 
 namespace FFF.Behaviours.UI
 {
@@ -12,8 +11,6 @@ namespace FFF.Behaviours.UI
          base.Act();
 
          PlayerStateSingleton.Instance.GameScreen = EGameScreen.GAME_SCREEN;
-
-         //GameResetter.Reset();
       }
    }
 }
