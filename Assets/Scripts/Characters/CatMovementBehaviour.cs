@@ -15,22 +15,12 @@ namespace FFF.Characters
     }
     private bool MoveTowardsTarget(float p_fSpeed)
     {
-      return MoveTowardsTarget(p_fSpeed, true);
-    }
-
-    private bool MoveTowardsTarget(float p_fSpeed, bool p_bCheckDistance)
-    {
       // Move our position a step closer to the target.
       var step = p_fSpeed * Time.deltaTime; // calculate distance to move
       transform.position = Vector2.MoveTowards(transform.position, m_targetPosition, step);
 
-      if (p_bCheckDistance)
-      {
-        // Check if the position of the cat and target are approximately equal.
-        return Vector2.Distance(transform.position, m_targetPosition) < 0.001f;
-      }
-
-      return false;
+      // Check if the position of the cat and target are approximately equal.
+      return Vector2.Distance(transform.position, m_targetPosition) < 0.001f;
     }
 
     private void InitMovement(Vector2 p_targetPosition, EMovement p_movement, System.Action p_callback)
