@@ -26,7 +26,7 @@ namespace FFF.Characters
     private CatAnimationController m_animationController;
 
     private CatMovementBehaviour m_movementBehaviour;
-    
+
     private System.Action m_onFallCallback;
     private System.Action m_onWinCallback;
 
@@ -159,11 +159,20 @@ namespace FFF.Characters
 
     #endregion
 
+    private Vector2 m_originalPosition;
+
     // Start is called before the first frame update
     void Start()
     {
+      m_originalPosition = transform.position;
       m_animationController = GetComponent<CatAnimationController>();
       m_movementBehaviour = GetComponent<CatMovementBehaviour>();
+    }
+    public void Reset()
+    {
+      m_cat.Stamina = m_cat.StaminaMax;
+      m_animationController.TriggerReset();
+      transform.position = m_originalPosition;
     }
   }
 }

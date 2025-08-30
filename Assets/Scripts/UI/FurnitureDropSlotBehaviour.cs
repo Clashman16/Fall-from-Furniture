@@ -46,8 +46,6 @@ namespace FFF.Behaviours.UI
       {
          base.Init(p_manager);
 
-         IsWaitingSelection = false;
-
          m_probabilityDisplay = GetComponentInChildren<TextMeshProUGUI>();
 
         if(s_gradient == null)
@@ -64,6 +62,8 @@ namespace FFF.Behaviours.UI
 
             s_gradient.SetKeys(l_lstColors, l_lstAlphas);
         }
+        
+        Reset();
       }
 
       public void OnDrop(PointerEventData p_eventData)
@@ -76,6 +76,14 @@ namespace FFF.Behaviours.UI
             LevelManager.LastSelectedInteractable = this;
          }
       }
+
+      public void Reset()
+      {
+        CurrentProbability = 0.0f;
+        IsWaitingSelection = false;
+        base.m_imgFurnitureDisplay.sprite = null;
+      }
+    }
 
       public override void OnClick()
       {

@@ -28,7 +28,7 @@ namespace FFF.Characters
 
     #endregion
 
-    #region Trigger Animation (Fall, Win)
+  #region Trigger Animation (Fall, Win, Reset)
 
     public void TriggerFall()
     {
@@ -40,13 +40,18 @@ namespace FFF.Characters
       TriggerAnimation("TrWin");
     }
 
-    private void TriggerAnimation(string p_animationName)
+  public void TriggerReset()
+  {
+    TriggerAnimation("TrReset");
+  }
+
+  private void TriggerAnimation(string p_animationName)
+  {
+    if (m_animator != null)
     {
-      if (m_animator != null)
-      {
-        m_animator.SetTrigger(p_animationName);
-      }
+      m_animator.SetTrigger(p_animationName);
     }
+  }
 
     #endregion
 

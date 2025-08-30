@@ -128,7 +128,8 @@ namespace FFF.Managers
 
       public void OnFall()
       {
-        // TODO
+         
+         ResetLevel();
       }
 
       public void OnWin()
@@ -151,6 +152,7 @@ namespace FFF.Managers
             else
             {
                ResetLevel();
+               ResetFurnituresAndCat();
             }
          }
          else
@@ -217,8 +219,8 @@ namespace FFF.Managers
                l_goSlot.GetComponent<FurnitureDropSlotBehaviour>().Init(this);
             }
 
-            m_draggableFurnitureLayoutGroup.transform.GetChild(l_i).GetComponent<DraggableFurnitureBehaviour>().Reset();
-         }
+              m_draggableFurnitureLayoutGroup.transform.GetChild(l_i).GetComponent<DraggableFurnitureBehaviour>().Reset();
+           }
 
          m_cat.Init(m_dFurnitureCount);
 
@@ -230,6 +232,26 @@ namespace FFF.Managers
          m_timer.gameObject.SetActive(true);
 
          m_timer.Reset();
+      }
+
+      private void ResetFurnituresAndCat()
+      {
+          for (int l_i = 0; l_i < m_dFurnitureCount; l_i++)
+          {
+            Transform l_trfSlotLayoutGroup = m_furnitureSlotLayoutGroup.transform;
+            if (l_i < l_trfSlotLayoutGroup.childCount)
+            {
+                l_trfSlotLayoutGroup.GetChild(l_i).GetComponent<FurnitureDropSlotBehaviour>().Reset();
+            }
+
+            m_draggableFurnitureLayoutGroup.transform.GetChild(l_i).GetComponent<DraggableFurnitureBehaviour>().Reset();
+          }
+
+          m_dCurrentRefillableSlotId = 0;
+
+          m_lstStackedFurniture.Clear();
+
+          m_cat.Reset();
       }
 
       private void ClearLevel()

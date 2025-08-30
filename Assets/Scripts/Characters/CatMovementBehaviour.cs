@@ -59,15 +59,15 @@ namespace FFF.Characters
       InitMovement(p_targetPosition, EMovement.WALK, p_callback);
     }
 
-    private void Walk()
-    {
-      bool l_targetReached = MoveTowardsTarget(m_fWalkingSpeed);
+  private void Walk()
+  {
+    bool l_bTargetReached = MoveTowardsTarget(m_fWalkingSpeed);
 
-      if (l_targetReached)
-      {
-        EndMovement();
-      }
+    if (l_bTargetReached)
+    {
+      EndMovement();
     }
+  }
 
     #endregion
 
@@ -80,15 +80,15 @@ namespace FFF.Characters
       InitMovement(p_targetPosition, EMovement.CLIMB, p_callback);
     }
 
-    public void Climb()
-    {
-      bool l_targetReached = MoveTowardsTarget(m_fClimbingSpeed);
+  public void Climb()
+  {
+    bool l_bTargetReached = MoveTowardsTarget(m_fClimbingSpeed);
 
-      if (l_targetReached)
-      {
-        EndMovement();
-      }
+    if (l_bTargetReached)
+    {
+      EndMovement();
     }
+  }
 
     #endregion
 
@@ -114,14 +114,13 @@ namespace FFF.Characters
         m_fCurrentFallingSpeed = m_fMaxFallingSpeed;
       }
 
-      MoveTowardsTarget(m_fCurrentFallingSpeed, false);
+    bool l_bTargetReached = MoveTowardsTarget(m_fCurrentFallingSpeed);
 
-      // Check if the cat y position is under the ground
-      if (transform.position.y < m_targetPosition.y)
-      {
-        EndMovement();
-      }
+    if (l_bTargetReached)
+    {
+      EndMovement();
     }
+  }
 
     #endregion
 

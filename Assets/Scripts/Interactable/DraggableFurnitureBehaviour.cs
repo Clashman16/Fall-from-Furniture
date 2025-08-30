@@ -102,7 +102,7 @@ namespace FFF.Behaviours.Interactable
 
       public void Reset()
       {
-         
+         gameObject.SetActive(true);
       }
    }
 }
