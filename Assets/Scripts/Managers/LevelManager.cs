@@ -96,7 +96,7 @@ namespace FFF.Managers
 
                if(IsCheckingResult)
                {
-                  m_cat.FallingIndex = FurnitureUtils.TryClimbing(m_cat, m_lstStackedFurniture);  
+                  m_cat.FallingIndex = FurnitureUtils.TryClimbing(m_lstStackedFurniture);  
                   
                   m_cat.TryToGetFood(OnFall, OnWin);
                }
@@ -128,8 +128,7 @@ namespace FFF.Managers
 
       public void OnFall()
       {
-         
-         ResetLevel();
+         ResetFurnituresAndCat();
       }
 
       public void OnWin()
@@ -152,7 +151,6 @@ namespace FFF.Managers
             else
             {
                ResetLevel();
-               ResetFurnituresAndCat();
             }
          }
          else
@@ -222,7 +220,11 @@ namespace FFF.Managers
               m_draggableFurnitureLayoutGroup.transform.GetChild(l_i).GetComponent<DraggableFurnitureBehaviour>().Reset();
            }
 
-         m_cat.Init(m_dFurnitureCount);
+         m_dCurrentRefillableSlotId = 0;
+        
+         m_lstStackedFurniture.Clear();
+      
+         m_cat.Reset(m_dFurnitureCount);
 
          if(m_timer == null)
          {

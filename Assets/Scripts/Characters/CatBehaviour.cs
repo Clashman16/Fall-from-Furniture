@@ -170,9 +170,14 @@ namespace FFF.Characters
     }
     public void Reset()
     {
-      m_cat.Stamina = m_cat.StaminaMax;
-      m_animationController.TriggerReset();
+      Reset(m_cat.StaminaMax);
+    }
+
+    public void Reset(int p_staminaValue)
+    {
+      m_cat.StaminaMax = p_staminaValue;
       transform.position = m_originalPosition;
+      m_animationController.TriggerReset();
     }
   }
 }

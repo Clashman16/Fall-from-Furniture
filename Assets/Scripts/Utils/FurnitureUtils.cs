@@ -19,9 +19,9 @@ namespace FFF.Utils
 
       // Check if the cat succed to climb the furnitures
       // Return the index of the failing furniture, or -1 if succed
-      public static int TryClimbing(CatBehaviour p_cat, List<FurnitureDropSlotBehaviour> p_lstFurniture)
+      public static int TryClimbing(List<FurnitureDropSlotBehaviour> p_lstFurniture)
       {
-         return TryClimbingV1(p_cat, p_lstFurniture);
+         return TryClimbingV1(p_lstFurniture);
       }
 
       #region V1
@@ -62,8 +62,7 @@ namespace FFF.Utils
 
          return Mathf.Clamp01(l_probability);
       }
-
-      private static int TryClimbingV1(CatBehaviour p_cat, List<FurnitureDropSlotBehaviour> p_lstFurniture)
+      private static int TryClimbingV1(List<FurnitureDropSlotBehaviour> p_lstFurniture)
       {
          for (int i = 0; i < p_lstFurniture.Count; i++)
          {

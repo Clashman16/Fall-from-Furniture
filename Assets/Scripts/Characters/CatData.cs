@@ -15,13 +15,16 @@ namespace FFF.Characters
       public int StaminaMax
       {
          get => staminaMaxValue;
-         set => staminaMaxValue = value;
+         set
+         {
+           staminaValue = value;
+           staminaMaxValue = value;
+         }
       }
 
       public CatData(int p_staminaValue)
       {
-         staminaValue = p_staminaValue;
-         staminaMaxValue = p_staminaValue;
+         StaminaMax = p_staminaValue;
       }
    }
 }
