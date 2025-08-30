@@ -13,6 +13,14 @@ namespace FFF.Behaviours.UI
 
       private EGameScreen m_lastGameScreen;
 
+      private bool m_isResuming;
+
+      public bool IsResuming
+      {
+         get => m_isResuming;
+         set => m_isResuming = value;
+      }
+
       private void Start()
       {
          PlayerStateSingleton.Instance.GameScreen = EGameScreen.TITLE_SCREEN;
@@ -25,7 +33,7 @@ namespace FFF.Behaviours.UI
          {
             m_lstScreens.Add(l_pair.Key, l_pair.Value);
 
-            if(l_pair.Key != EGameScreen.TITLE_SCREEN && l_pair.Key != EGameScreen.GAME_SCREEN)
+            if(l_pair.Key != EGameScreen.TITLE_SCREEN)
             {
                l_pair.Value.gameObject.SetActive(false);
             }
@@ -57,8 +65,8 @@ namespace FFF.Behaviours.UI
                   m_lstScreens[EGameScreen.TITLE_SCREEN].gameObject.SetActive(false);
       
                   break;
-      
-               default:
+
+               case EGameScreen.TITLE_SCREEN:
                   foreach(KeyValuePair<EGameScreen, CanvasBehaviour> l_pair in m_lstScreens)
                   {
                      l_pair.Value.gameObject.SetActive(false);
@@ -71,6 +79,12 @@ namespace FFF.Behaviours.UI
 
             l_currentActiveCanvas.gameObject.SetActive(true);
 
+            GameCanvasBehaviour l_gameCanvas = l_currentActiveCanvas.GetComponent<GameCanvasBehaviour>();
+            if (l_gameCanvas != null)
+            {
+               l_gameCanvas.LastGameScreen = m_lastGameScreen;
+            }
+
             l_currentActiveCanvas.Reset();
 
             if (l_currentActiveCanvas != null && !l_currentActiveCanvas.HasTranslated)
@@ -78,11 +92,7 @@ namespace FFF.Behaviours.UI
                l_currentActiveCanvas.TranslateCanvas();
             }
 
-            GameCanvasBehaviour l_gameCanvas = l_currentActiveCanvas.GetComponent<GameCanvasBehaviour>();
-            if (l_gameCanvas != null)
-            {
-               l_gameCanvas.LastGameScreen = m_lastGameScreen;
-            }
+            m_isResuming = false;
 
             m_lastGameScreen = l_currentGameScreen;
          }

@@ -1,4 +1,5 @@
 using FFF.Managers;
+using FFF.Player;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -118,9 +119,12 @@ namespace FFF.Behaviours.UI
          }
       }
 
-      public void OnClick()
+      public virtual void OnClick()
       {
-         m_levelManager.LastSelectedInteractable = this;
+         if (IsWaitingSelection && PlayerStateSingleton.Instance.GameScreen == Utils.EGameScreen.GAME_SCREEN)
+         {
+            m_levelManager.LastSelectedInteractable = this;
+         }
       }
    }
 }

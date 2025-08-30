@@ -1,5 +1,6 @@
 using FFF.Behaviours.Interactable;
 using FFF.Managers;
+using FFF.Player;
 using System.Globalization;
 using TMPro;
 using UnityEngine;
@@ -69,9 +70,18 @@ namespace FFF.Behaviours.UI
       {
          DraggableFurnitureBehaviour l_draggable = p_eventData.pointerDrag.GetComponent<DraggableFurnitureBehaviour>();
          if (l_draggable != null && LevelManager.LastSelectedInteractable == l_draggable
-            && IsWaitingSelection && !IsSlotOccupied)
+            && IsWaitingSelection && !IsSlotOccupied
+            && PlayerStateSingleton.Instance.GameScreen == Utils.EGameScreen.GAME_SCREEN)
          {
             LevelManager.LastSelectedInteractable = this;
+         }
+      }
+
+      public override void OnClick()
+      {
+         if (!IsSlotOccupied)
+         {
+            base.OnClick();
          }
       }
    }
