@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 
 public class CatNoisesManager : MonoBehaviour
@@ -8,20 +9,43 @@ public class CatNoisesManager : MonoBehaviour
 
   private readonly float m_fMinCountdown = 3f;
   private readonly float m_fMaxCountdown = 8f;
-  private float m_fCountdown = 0f;
-
 
   private RandomIndexWithoutRepetition m_randomIndexWithoutRepetition;
 
-  private void ResetRandomCountdown()
+  private IEnumerator m_coroutine;
+
+  private float RandomCountdown
   {
-    m_fCountdown = Random.Range(m_fMinCountdown, m_fMaxCountdown);
+    get => Random.Range(m_fMinCountdown, m_fMaxCountdown);
   }
 
   private void PlayRandomSound()
   {
     m_AudioSource.PlayOneShot(m_lstCatSounds[m_randomIndexWithoutRepetition.Next]);
-    ResetRandomCountdown();
+  }
+
+  private IEnumerator CoPlayDelayedClip(float p_delay)
+  {
+    yield return new WaitForSeconds(p_delay);
+    PlayRandomSound();
+    Play();
+  }
+
+  public void Play()
+  {
+    m_coroutine = CoPlayDelayedClip(RandomCountdown);
+    StartCoroutine(m_coroutine);
+  }
+
+  public void Stop()
+  {
+    StopCoroutine(m_coroutine);
+  }
+
+  public void Pause()
+  {
+    Stop();
+    PlayRandomSound();
   }
 
   // Start is called before the first frame update
@@ -29,21 +53,5 @@ public class CatNoisesManager : MonoBehaviour
   {
     m_AudioSource = GetComponent<AudioSource>();
     m_randomIndexWithoutRepetition = new RandomIndexWithoutRepetition(m_lstCatSounds.Length);
-  }
-
-  // Update is called once per frame
-  void Update()
-  {
-    if (!m_AudioSource.isPlaying)
-    {
-      if (m_fCountdown < 0f)
-      {
-        PlayRandomSound();
-      }
-      else
-      {
-        m_fCountdown -= Time.deltaTime;
-      }
-    }
   }
 }

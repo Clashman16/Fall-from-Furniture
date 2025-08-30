@@ -6,7 +6,8 @@ namespace HypNot.Behaviours.UI
 {
    public class PauseCanvasBehaviour : CanvasBehaviour
    {
-      AudioSource m_backgroundMusic;
+      private AudioSource m_backgroundMusic;
+      private CatNoisesManager m_catNoises;
 
       public override void Reset()
       {
@@ -16,6 +17,12 @@ namespace HypNot.Behaviours.UI
          }
 
          m_backgroundMusic.Pause();
+
+         if (m_catNoises == null)
+         {
+            m_catNoises = GameObject.FindGameObjectWithTag(TagDatabaseSingleton.Instance.SFXPlayerTag).GetComponent<CatNoisesManager>();
+         }
+         m_catNoises.Pause();
 
          base.Reset();
       }
