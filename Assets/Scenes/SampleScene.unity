@@ -846,10 +846,10 @@ RectTransform:
   - {fileID: 1272838045}
   - {fileID: 1198773033}
   - {fileID: 271312451}
+  - {fileID: 1375813475}
   - {fileID: 870254026}
   - {fileID: 327264314}
   - {fileID: 1544956672}
-  - {fileID: 1375813475}
   - {fileID: 1424706685}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
