@@ -20,6 +20,11 @@ namespace FFF.Behaviours.UI
 
       private LevelManager m_levelManager;
 
+      public LevelManager LevelManager
+      {
+         get => m_levelManager;
+      }
+
       private ScreenManagerBehaviour m_screenManager;
 
       public override void Reset()

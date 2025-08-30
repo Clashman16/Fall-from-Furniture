@@ -27,6 +27,11 @@ namespace FFF.Managers
 
       private TimerBehaviour m_timer;
 
+      public TimerBehaviour Timer
+      {
+         get => m_timer;
+      }
+
       #endregion
 
       #region Checking result
@@ -172,6 +177,8 @@ namespace FFF.Managers
             m_timer = GetComponentInChildren<TimerBehaviour>();
          }
 
+         m_timer.gameObject.SetActive(true);
+
          m_timer.Reset();
 
          m_sFXBehavior = GameObject.FindGameObjectWithTag(TagDatabaseSingleton.Instance.SFXPlayerTag).GetComponent<SFXBehavior>();
@@ -199,6 +206,8 @@ namespace FFF.Managers
          {
             m_timer = GetComponentInChildren<TimerBehaviour>();
          }
+
+         m_timer.gameObject.SetActive(true);
 
          m_timer.Reset();
       }

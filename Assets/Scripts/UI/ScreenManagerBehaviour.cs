@@ -56,7 +56,12 @@ namespace FFF.Behaviours.UI
                   break;
       
                case EGameScreen.END_SCREEN:
-                  m_lstScreens[EGameScreen.GAME_SCREEN].gameObject.SetActive(false);
+                  GameCanvasBehaviour l_lastGameCanvas = m_lstScreens[EGameScreen.GAME_SCREEN].GetComponent<GameCanvasBehaviour>(); ;
+
+                  if(l_lastGameCanvas != null)
+                  {
+                     l_lastGameCanvas.LevelManager.Timer.gameObject.SetActive(false);
+                  }
       
                   break;
       
