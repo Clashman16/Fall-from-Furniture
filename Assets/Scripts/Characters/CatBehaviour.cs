@@ -28,14 +28,25 @@ namespace FFF.Characters
     private CatAnimationController m_animationController;
 
     private CatMovementBehaviour m_movementBehaviour;
+    
+    private System.Action m_onFallCallback;
+    private System.Action m_onWinCallback;
 
     public RectTransform m_furnitures;
 
     public GameObject m_ground;
 
+    public void TryToGetFood(System.Action p_onFallCallback, System.Action p_onWinCallback)
+    {
+      m_onFallCallback = p_onFallCallback;
+      m_onWinCallback = p_onWinCallback;
+
+      WalkToFurnitures();
+    }
+
     #region Walk
 
-    public void WalkToFurnitures()
+    private void WalkToFurnitures()
     {
       m_animationController.ToggleWalk(true);
       m_movementBehaviour.WalkTo(new Vector2(m_furnitures.transform.position.x - RectTransformUtils.GetAbsoluteSize(m_furnitures).x * 0.75f, transform.position.y), OnFurnituresReached);
@@ -98,7 +109,7 @@ namespace FFF.Characters
     // Called in animation CatFall
     public void StartFalling()
     {
-      m_movementBehaviour.FallTo(new Vector2(transform.position.x, m_ground.transform.position.y), null);
+      m_movementBehaviour.FallTo(new Vector2(transform.position.x, m_ground.transform.position.y), m_onFallCallback);
     }
 
     private void TriggerFallingAnimation()
@@ -139,6 +150,11 @@ namespace FFF.Characters
     private void Win()
     {
       m_animationController.TriggerWin();
+
+      if (m_onWinCallback != null)
+      {
+        m_onWinCallback.Invoke();
+      }
     }
 
     #endregion

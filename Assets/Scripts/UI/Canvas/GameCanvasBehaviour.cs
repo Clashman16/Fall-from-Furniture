@@ -8,6 +8,7 @@ namespace FFF.Behaviours.UI
    public class GameCanvasBehaviour : CanvasBehaviour
    {
       private AudioSource m_backgroundMusic;
+      private CatNoisesBehavior m_catNoises;
 
       private EGameScreen m_lastGameScreen;
 
@@ -38,6 +39,13 @@ namespace FFF.Behaviours.UI
                m_backgroundMusic.UnPause();
             }
          }
+
+         if (m_catNoises == null)
+         {
+            m_catNoises = GameObject.FindGameObjectWithTag(TagDatabaseSingleton.Instance.SFXPlayerTag).GetComponent<CatNoisesBehavior>();
+         }
+
+         m_catNoises.Play();
 
          if(m_levelManager == null)
          {
