@@ -8,21 +8,21 @@ namespace FFF.Utils
    public static class FurnitureUtils
    {
       // Get the probability of a Furniture
-      public static float GetProbabilityOfFalling(CatController p_cat, List<FurnitureDropSlotBehaviour> p_lstFurniture)
+      public static float GetProbabilityOfFalling(CatBehaviour p_cat, List<FurnitureDropSlotBehaviour> p_lstFurniture)
       {
          return GetProbabilityOfFallingV1(p_cat, p_lstFurniture);
       }
 
       // Check if the cat succed to climb the furnitures
       // Return the index of the failing furniture, or -1 if succed
-      public static int TryClimbing(CatController p_cat, List<FurnitureDropSlotBehaviour> p_lstFurniture)
+      public static int TryClimbing(CatBehaviour p_cat, List<FurnitureDropSlotBehaviour> p_lstFurniture)
       {
          return TryClimbingV1(p_cat, p_lstFurniture);
       }
 
       #region V1
 
-      private static float GetProbabilityOfFallingV1(CatController p_cat, List<FurnitureDropSlotBehaviour> p_lstFurniture)
+      private static float GetProbabilityOfFallingV1(CatBehaviour p_cat, List<FurnitureDropSlotBehaviour> p_lstFurniture)
       {
          /* ### RULE 1 ### */
          // You can't fall from the first furniture
@@ -61,7 +61,7 @@ namespace FFF.Utils
          // If the stabilities are different we add 1 / stability to the probability of falling
          return Mathf.Min(l_fProbabilityOfFalling + 1f / l_dCurrentStability, 1f);
       }
-      private static int TryClimbingV1(CatController p_cat, List<FurnitureDropSlotBehaviour> p_lstFurniture)
+      private static int TryClimbingV1(CatBehaviour p_cat, List<FurnitureDropSlotBehaviour> p_lstFurniture)
       {
          for (int i = 0; i < p_lstFurniture.Count; i++)
          {
