@@ -1,14 +1,19 @@
-using FFF.Behaviours.UI;
-using FFF.Sounds;
+﻿using FFF.Sounds;
 using FFF.Utils;
+using TMPro;
 using UnityEngine;
 
-namespace HypNot.Behaviours.UI
+namespace FFF.Behaviours.UI
 {
    public class EndCanvasBehaviour : CanvasBehaviour
    {
       private AudioSource m_backgroundMusic;
+
       private CatNoisesBehavior m_catNoises;
+
+      private TextMeshProUGUI m_feedbackDisplay;
+
+      private NextLevelButtonBehaviour m_nextLevelBtn;
 
       public override void Reset()
       {
@@ -35,6 +40,23 @@ namespace HypNot.Behaviours.UI
          //m_sfx.clip = SFXDatabaseSingleton.Instance.Database.EndSound;
 
          base.Reset();
+      }
+
+      public void Init(bool p_bDidPlayerWin)
+      {
+         if (m_feedbackDisplay == null)
+         {
+            m_feedbackDisplay = GetComponentInChildren<TextMeshProUGUI>();
+         }
+
+         m_feedbackDisplay.text = p_bDidPlayerWin ? "Bravo!": "You loose!" ;
+
+         if(m_nextLevelBtn == null)
+         {
+            m_nextLevelBtn = GetComponentInChildren<NextLevelButtonBehaviour>();
+         }
+
+         m_nextLevelBtn.gameObject.SetActive(p_bDidPlayerWin);
       }
    }
 }

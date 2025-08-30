@@ -40,6 +40,14 @@ namespace FFF.Managers
 
       public bool IsCheckingResult => m_lstStackedFurniture != null && m_dFurnitureCount == m_lstStackedFurniture.Count;
 
+      bool m_bDidPlayerWin = false;
+
+      public bool DidPlayerWin
+      {
+         get => m_bDidPlayerWin;
+         set => m_bDidPlayerWin = value;
+      }
+
       #endregion
 
       #region Drag n drop management
@@ -126,6 +134,10 @@ namespace FFF.Managers
       public void OnWin()
       {
         m_sFXBehavior.PlayFX(ESoundFX.WIN);
+
+         m_bDidPlayerWin = true;
+
+         PlayerStateSingleton.Instance.GameScreen = EGameScreen.END_SCREEN;
       }
 
       public void LaunchLevel()

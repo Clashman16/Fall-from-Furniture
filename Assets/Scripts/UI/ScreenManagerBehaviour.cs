@@ -13,13 +13,15 @@ namespace FFF.Behaviours.UI
 
       private EGameScreen m_lastGameScreen;
 
-      private bool m_isResuming;
+      private bool m_bIsResuming;
 
       public bool IsResuming
       {
-         get => m_isResuming;
-         set => m_isResuming = value;
+         get => m_bIsResuming;
+         set => m_bIsResuming = value;
       }
+
+      private bool m_bDidPlayerWin;
 
       private void Start()
       {
@@ -38,6 +40,10 @@ namespace FFF.Behaviours.UI
                l_pair.Value.gameObject.SetActive(false);
             }
          }
+
+         m_bIsResuming = false;
+
+         m_bDidPlayerWin = false;
       }
 
       private void Update()
@@ -56,11 +62,13 @@ namespace FFF.Behaviours.UI
                   break;
       
                case EGameScreen.END_SCREEN:
-                  GameCanvasBehaviour l_lastGameCanvas = m_lstScreens[EGameScreen.GAME_SCREEN].GetComponent<GameCanvasBehaviour>(); ;
+                  GameCanvasBehaviour l_lastGameCanvas = m_lstScreens[EGameScreen.GAME_SCREEN].GetComponent<GameCanvasBehaviour>();
 
                   if(l_lastGameCanvas != null)
                   {
                      l_lastGameCanvas.LevelManager.Timer.gameObject.SetActive(false);
+
+                     m_bDidPlayerWin = l_lastGameCanvas.LevelManager.DidPlayerWin;
                   }
       
                   break;
@@ -90,6 +98,12 @@ namespace FFF.Behaviours.UI
                l_gameCanvas.LastGameScreen = m_lastGameScreen;
             }
 
+            EndCanvasBehaviour l_endCanvas = l_currentActiveCanvas.GetComponent<EndCanvasBehaviour>();
+            if (l_endCanvas != null)
+            {
+               l_endCanvas.Init(m_bDidPlayerWin);
+            }
+
             l_currentActiveCanvas.Reset();
 
             if (l_currentActiveCanvas != null && !l_currentActiveCanvas.HasTranslated)
@@ -97,7 +111,7 @@ namespace FFF.Behaviours.UI
                l_currentActiveCanvas.TranslateCanvas();
             }
 
-            m_isResuming = false;
+            m_bIsResuming = false;
 
             m_lastGameScreen = l_currentGameScreen;
          }

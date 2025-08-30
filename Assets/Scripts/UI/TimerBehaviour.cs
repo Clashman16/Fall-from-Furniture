@@ -33,6 +33,8 @@ namespace FFF.Behaviours.UI
             {
                m_fTime = 0;
 
+               m_levelManager.DidPlayerWin = false;
+
                PlayerStateSingleton.Instance.GameScreen = EGameScreen.END_SCREEN;
             }
          }
