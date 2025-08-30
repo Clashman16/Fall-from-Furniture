@@ -169,7 +169,7 @@ namespace FFF.Managers
          if (m_timer == null)
          {
             m_timer = GetComponentInChildren<TimerBehaviour>();
-      }
+         }
 
          m_timer.Reset();
 
@@ -184,6 +184,9 @@ namespace FFF.Managers
             if (l_i < l_trfSlotLayoutGroup.childCount)
             {
                Destroy(l_trfSlotLayoutGroup.GetChild(l_i).gameObject);
+
+               GameObject l_goSlot = Instantiate(m_goFurnitureSlotPrefab, m_furnitureSlotLayoutGroup.transform);
+               l_goSlot.GetComponent<FurnitureDropSlotBehaviour>().Init(this);
             }
 
             m_draggableFurnitureLayoutGroup.transform.GetChild(l_i).GetComponent<DraggableFurnitureBehaviour>().Reset();
