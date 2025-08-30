@@ -24,6 +24,11 @@ namespace FFF.Behaviours.UI
          foreach(GameScreenObjectPair l_pair in m_lstScreensInit)
          {
             m_lstScreens.Add(l_pair.Key, l_pair.Value);
+
+            if(l_pair.Key != EGameScreen.TITLE_SCREEN && l_pair.Key != EGameScreen.GAME_SCREEN)
+            {
+               l_pair.Value.gameObject.SetActive(false);
+            }
          }
       }
 
