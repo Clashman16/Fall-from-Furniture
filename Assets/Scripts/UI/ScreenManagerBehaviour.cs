@@ -33,7 +33,7 @@ namespace FFF.Behaviours.UI
          {
             m_lstScreens.Add(l_pair.Key, l_pair.Value);
 
-            if(l_pair.Key != EGameScreen.TITLE_SCREEN && l_pair.Key != EGameScreen.GAME_SCREEN)
+            if(l_pair.Key != EGameScreen.TITLE_SCREEN)
             {
                l_pair.Value.gameObject.SetActive(false);
             }
