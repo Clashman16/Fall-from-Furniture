@@ -5,6 +5,7 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
+using FFF.Player;
 
 namespace FFF.Behaviours.Interactable
 {
@@ -73,7 +74,7 @@ namespace FFF.Behaviours.Interactable
 
       public void OnBeginDrag(PointerEventData p_eventData)
       {
-         if(IsWaitingSelection)
+         if(IsWaitingSelection && PlayerStateSingleton.Instance.GameScreen == Utils.EGameScreen.GAME_SCREEN)
          {
             LevelManager.LastSelectedInteractable = this;
 
@@ -83,14 +84,20 @@ namespace FFF.Behaviours.Interactable
 
       public void OnDrag(PointerEventData p_eventData)
       {
-         m_trf.anchoredPosition += p_eventData.delta / m_canvas.scaleFactor;
+         if(PlayerStateSingleton.Instance.GameScreen == Utils.EGameScreen.GAME_SCREEN)
+         {
+            m_trf.anchoredPosition += p_eventData.delta / m_canvas.scaleFactor;
+         }
       }
 
       public void OnEndDrag(PointerEventData p_eventData)
       {
-         m_trf.anchoredPosition = Vector2.zero;
+         if (PlayerStateSingleton.Instance.GameScreen == Utils.EGameScreen.GAME_SCREEN)
+         {
+            m_trf.anchoredPosition = Vector2.zero;
 
-         m_canvasGroup.blocksRaycasts = true;
+            m_canvasGroup.blocksRaycasts = true;
+         }
       }
 
       public void Reset()
