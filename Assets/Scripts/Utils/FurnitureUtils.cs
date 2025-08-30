@@ -1,4 +1,4 @@
-using FFF.Characters;
+﻿using FFF.Characters;
 using FFF.Behaviours.UI;
 using System.Collections.Generic;
 using UnityEngine;
@@ -7,6 +7,10 @@ namespace FFF.Utils
 {
    public static class FurnitureUtils
    {
+      private const float m_dMaxStability = 5;
+
+      private const float m_dMinStability = 1;
+
       // Get the probability of a Furniture
       public static float GetProbabilityOfFalling(CatBehaviour p_cat, List<FurnitureDropSlotBehaviour> p_lstFurniture)
       {
@@ -24,43 +28,41 @@ namespace FFF.Utils
 
       private static float GetProbabilityOfFallingV1(CatBehaviour p_cat, List<FurnitureDropSlotBehaviour> p_lstFurniture)
       {
-         /* ### RULE 1 ### */
-         // You can't fall from the first furniture
-         if (p_lstFurniture.Count < 2) { return 0f; }
-
-         FurnitureDropSlotBehaviour p_previous = p_lstFurniture[0];
-         FurnitureDropSlotBehaviour p_current = p_lstFurniture[1];
-
-         int l_dCurrentStability = p_current.CurrentStability;
-
-         /* ### RULE 2 ### */
-         // If the stability is bigger than the previous one, we subtract 1 from the current one
-         if (l_dCurrentStability > p_previous.CurrentStability)
+         // No fall with the first furniture
+         if (p_lstFurniture == null || p_lstFurniture.Count < 2)
          {
-            l_dCurrentStability--;
+            return 0f;
          }
 
-         // You fall if the stability is 0 or 1 (Dev's shortcut)
-         if (l_dCurrentStability < 2) { return 1f; }
+         FurnitureDropSlotBehaviour l_previousSlot = p_lstFurniture[0];
+         FurnitureDropSlotBehaviour l_currentSlot = p_lstFurniture[1];
 
-         float l_fProbabilityOfFalling = 0f;
+         int l_dPreviousStability = Mathf.Clamp(l_previousSlot.CurrentStability, 1, 5);
+         int l_dCurrentStability = Mathf.Clamp(l_currentSlot.CurrentStability, 1, 5);
 
-         /* ### RULE 3 ### */
-         // If cat's stamina is lower than the stability (modified or not), we add (1 - stamina / staminaMax) / 10 to the probability of falling
+         int l_dPreviousEffectiveStability = l_dPreviousStability;
+         int l_dCurrentEffectiveStability = (l_dPreviousEffectiveStability < l_dCurrentStability) ? Mathf.Max(1, l_dCurrentStability - 1) : l_dCurrentStability;
 
-         if (p_cat.Data.Stamina < l_dCurrentStability)
+         // No fall with the same 2 consecutive stabilities
+         if (l_dCurrentEffectiveStability == l_dPreviousEffectiveStability)
          {
-             l_fProbabilityOfFalling += (1f - (float) p_cat.Data.Stamina / (float) p_cat.Data.StaminaMax) / 10f;
+            return 0f;
          }
 
-         /* ### RULE 4 ### */
-         // If the (original) stability is equal to the previous one, we ignore the stability for the probability of falling
-         if (p_current.CurrentStability == p_previous.CurrentStability) { return l_fProbabilityOfFalling; }
+         int l_dStamina = Mathf.Max(0, p_cat.Data.Stamina);
+         int l_dStaminaMax = Mathf.Max(1, p_cat.Data.StaminaMax);
 
-         /* ### RULE 5 ### */
-         // If the stabilities are different we add 1 / stability to the probability of falling
-         return Mathf.Min(l_fProbabilityOfFalling + 1f / l_dCurrentStability, 1f);
+         // Probability of falling
+         float l_probability = (m_dMaxStability - (float)l_dCurrentEffectiveStability) / (float) (m_dMaxStability - m_dMinStability);
+
+         if (l_dStamina < l_dCurrentEffectiveStability)
+         {
+            l_probability += (float)l_dStamina / (float)l_dStaminaMax;
+         }
+
+         return Mathf.Clamp01(l_probability);
       }
+
       private static int TryClimbingV1(CatBehaviour p_cat, List<FurnitureDropSlotBehaviour> p_lstFurniture)
       {
          for (int i = 0; i < p_lstFurniture.Count; i++)
