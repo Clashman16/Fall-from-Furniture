@@ -20,12 +20,12 @@ namespace HypNot.Behaviours.UI
 
          m_backgroundMusic.Stop();
 
-         if (m_sfx == null)
-         {
-            m_sfx = GameObject.FindGameObjectWithTag(TagDatabaseSingleton.Instance.SFXPlayerTag).GetComponent<AudioSource>();
-         }
+         //if (m_sfx == null)
+         //{
+         //   m_sfx = GameObject.FindGameObjectWithTag(TagDatabaseSingleton.Instance.SFXPlayerTag).GetComponent<AudioSource>();
+         //}
 
-         m_sfx.volume = PlayerSaveSingleton.Instance.SFXVolume;
+         //m_sfx.volume = PlayerSaveSingleton.Instance.SFXVolume;
 
          //m_sfx.clip = SFXDatabaseSingleton.Instance.Database.EndSound;
 
