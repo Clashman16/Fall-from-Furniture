@@ -66,26 +66,26 @@ namespace FFF.Behaviours.UI
       
                   break;
             }
+
+            CanvasBehaviour l_currentActiveCanvas = m_lstScreens[l_currentGameScreen];
+
+            l_currentActiveCanvas.gameObject.SetActive(true);
+
+            l_currentActiveCanvas.Reset();
+
+            if (l_currentActiveCanvas != null && !l_currentActiveCanvas.HasTranslated)
+            {
+               l_currentActiveCanvas.TranslateCanvas();
+            }
+
+            GameCanvasBehaviour l_gameCanvas = l_currentActiveCanvas.GetComponent<GameCanvasBehaviour>();
+            if (l_gameCanvas != null)
+            {
+               l_gameCanvas.LastGameScreen = m_lastGameScreen;
+            }
+
+            m_lastGameScreen = l_currentGameScreen;
          }
-   
-         CanvasBehaviour l_currentActiveCanvas = m_lstScreens[l_currentGameScreen];
-
-         l_currentActiveCanvas.gameObject.SetActive(true);
-
-         l_currentActiveCanvas.Reset();
-
-         if (l_currentActiveCanvas != null && !l_currentActiveCanvas.HasTranslated)
-         {
-            l_currentActiveCanvas.TranslateCanvas();
-         }
-
-         GameCanvasBehaviour l_gameCanvas = l_currentActiveCanvas.GetComponent<GameCanvasBehaviour>();
-         if (l_gameCanvas != null)
-         {
-            l_gameCanvas.LastGameScreen = m_lastGameScreen;
-         }
-        
-         m_lastGameScreen = l_currentGameScreen;
       }
    }
 }
