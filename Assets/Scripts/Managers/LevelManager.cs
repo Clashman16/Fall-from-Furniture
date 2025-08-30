@@ -27,6 +27,11 @@ namespace FFF.Managers
 
       private TimerBehaviour m_timer;
 
+      public TimerBehaviour Timer
+      {
+         get => m_timer;
+      }
+
       #endregion
 
       #region Checking result
@@ -34,6 +39,14 @@ namespace FFF.Managers
       private int m_dFurnitureCount = 0;
 
       public bool IsCheckingResult => m_lstStackedFurniture != null && m_dFurnitureCount == m_lstStackedFurniture.Count;
+
+      bool m_bDidPlayerWin = false;
+
+      public bool DidPlayerWin
+      {
+         get => m_bDidPlayerWin;
+         set => m_bDidPlayerWin = value;
+      }
 
       #endregion
 
@@ -121,6 +134,10 @@ namespace FFF.Managers
       public void OnWin()
       {
         m_sFXBehavior.PlayFX(ESoundFX.WIN);
+
+         m_bDidPlayerWin = true;
+
+         PlayerStateSingleton.Instance.GameScreen = EGameScreen.END_SCREEN;
       }
 
       public void LaunchLevel()
@@ -172,6 +189,8 @@ namespace FFF.Managers
             m_timer = GetComponentInChildren<TimerBehaviour>();
          }
 
+         m_timer.gameObject.SetActive(true);
+
          m_timer.Reset();
 
          m_sFXBehavior = GameObject.FindGameObjectWithTag(TagDatabaseSingleton.Instance.SFXPlayerTag).GetComponent<SFXBehavior>();
@@ -199,6 +218,8 @@ namespace FFF.Managers
          {
             m_timer = GetComponentInChildren<TimerBehaviour>();
          }
+
+         m_timer.gameObject.SetActive(true);
 
          m_timer.Reset();
       }
