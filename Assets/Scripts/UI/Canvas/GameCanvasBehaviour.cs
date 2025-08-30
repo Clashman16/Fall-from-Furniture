@@ -19,6 +19,8 @@ namespace FFF.Behaviours.UI
 
       private LevelManager m_levelManager;
 
+      private ScreenManagerBehaviour m_screenManager;
+
       public override void Reset()
       {
          if(m_backgroundMusic == null)
@@ -47,12 +49,20 @@ namespace FFF.Behaviours.UI
 
          m_catNoises.Play();
 
-         if(m_levelManager == null)
+         if (m_screenManager == null)
          {
-            m_levelManager = GetComponent<LevelManager>();
+            m_screenManager = FindObjectOfType<ScreenManagerBehaviour>();
          }
 
-         m_levelManager.LaunchLevel();
+         if (m_lastGameScreen != EGameScreen.PAUSE_SCREEN || !m_screenManager.IsResuming)
+         {
+            if (m_levelManager == null)
+            {
+               m_levelManager = GetComponent<LevelManager>();
+            }
+
+            m_levelManager.LaunchLevel();
+         } 
       }
    }
 }
