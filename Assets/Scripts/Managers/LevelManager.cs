@@ -24,6 +24,8 @@ namespace FFF.Managers
 
       private int m_levelId;
 
+      private TimerBehaviour m_timer;
+
       #endregion
 
       #region Checking result
@@ -164,6 +166,13 @@ namespace FFF.Managers
 
          m_lstStackedFurniture = new List<FurnitureDropSlotBehaviour>();
 
+         if (m_timer == null)
+         {
+            m_timer = GetComponentInChildren<TimerBehaviour>();
+      }
+
+         m_timer.Reset();
+
          m_sFXBehavior = GameObject.FindGameObjectWithTag(TagDatabaseSingleton.Instance.SFXPlayerTag).GetComponent<SFXBehavior>();
       }
 
@@ -181,6 +190,13 @@ namespace FFF.Managers
          }
 
          m_cat.Init(m_dFurnitureCount);
+
+         if(m_timer == null)
+         {
+            m_timer = GetComponentInChildren<TimerBehaviour>();
+         }
+
+         m_timer.Reset();
       }
 
       private void ClearLevel()
