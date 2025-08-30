@@ -83,7 +83,6 @@ namespace FFF.Behaviours.UI
         IsWaitingSelection = false;
         base.m_imgFurnitureDisplay.sprite = null;
       }
-    }
 
       public override void OnClick()
       {
@@ -92,5 +91,5 @@ namespace FFF.Behaviours.UI
             base.OnClick();
          }
       }
-   }
+    }
 }
