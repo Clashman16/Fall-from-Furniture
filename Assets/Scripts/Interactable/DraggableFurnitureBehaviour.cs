@@ -92,5 +92,10 @@ namespace FFF.Behaviours.Interactable
 
          m_canvasGroup.blocksRaycasts = true;
       }
+
+      public void Reset()
+      {
+         
+      }
    }
 }

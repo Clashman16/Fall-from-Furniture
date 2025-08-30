@@ -28,8 +28,7 @@ namespace FFF.Player
 
       private PlayerStateSingleton()
       {
-         //TODO: When the game will have a menu, use an external class to switch between screens and launch a game
-         m_gameScreen = EGameScreen.GAME_SCREEN;
+         // m_gameScreen is set in ScreenManagerBehaviour.Update
       }
    }
 }
