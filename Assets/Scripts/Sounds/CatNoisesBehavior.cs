@@ -1,57 +1,61 @@
+using FFF.Utils;
 using System.Collections;
 using UnityEngine;
 
-public class CatNoisesBehavior : MonoBehaviour
+namespace FFF.Sounds
 {
-  private AudioSource m_audioSource;
-
-  public AudioClip[] m_lstCatSounds;
-
-  private readonly float m_fMinCountdown = 3f;
-  private readonly float m_fMaxCountdown = 8f;
-
-  private RandomIndexWithoutRepetition m_randomIndexWithoutRepetition;
-
-  private IEnumerator m_coroutine;
-
-  private float RandomCountdown
+  public class CatNoisesBehavior : MonoBehaviour
   {
-    get => Random.Range(m_fMinCountdown, m_fMaxCountdown);
-  }
+    private AudioSource m_audioSource;
 
-  private void PlayRandomSound()
-  {
-    m_audioSource.PlayOneShot(m_lstCatSounds[m_randomIndexWithoutRepetition.Next]);
-  }
+    public AudioClip[] m_lstCatSounds;
 
-  private IEnumerator CoPlayDelayedClip(float p_delay)
-  {
-    yield return new WaitForSeconds(p_delay);
-    PlayRandomSound();
-    Play();
-  }
+    private readonly float m_fMinCountdown = 3f;
+    private readonly float m_fMaxCountdown = 8f;
 
-  public void Play()
-  {
-    m_coroutine = CoPlayDelayedClip(RandomCountdown);
-    StartCoroutine(m_coroutine);
-  }
+    private RandomIndexWithoutRepetition m_randomIndexWithoutRepetition;
 
-  public void Stop()
-  {
-    StopCoroutine(m_coroutine);
-  }
+    private IEnumerator m_coroutine;
 
-  public void Pause()
-  {
-    Stop();
-    PlayRandomSound();
-  }
+    private float RandomCountdown
+    {
+      get => Random.Range(m_fMinCountdown, m_fMaxCountdown);
+    }
 
-  // Start is called before the first frame update
-  void Start()
-  {
-    m_audioSource = GetComponent<AudioSource>();
-    m_randomIndexWithoutRepetition = new RandomIndexWithoutRepetition(m_lstCatSounds.Length);
+    private void PlayRandomSound()
+    {
+      m_audioSource.PlayOneShot(m_lstCatSounds[m_randomIndexWithoutRepetition.Next]);
+    }
+
+    private IEnumerator CoPlayDelayedClip(float p_delay)
+    {
+      yield return new WaitForSeconds(p_delay);
+      PlayRandomSound();
+      Play();
+    }
+
+    public void Play()
+    {
+      m_coroutine = CoPlayDelayedClip(RandomCountdown);
+      StartCoroutine(m_coroutine);
+    }
+
+    public void Stop()
+    {
+      StopCoroutine(m_coroutine);
+    }
+
+    public void Pause()
+    {
+      Stop();
+      PlayRandomSound();
+    }
+
+    // Start is called before the first frame update
+    void Start()
+    {
+      m_audioSource = GetComponent<AudioSource>();
+      m_randomIndexWithoutRepetition = new RandomIndexWithoutRepetition(m_lstCatSounds.Length);
+    }
   }
 }

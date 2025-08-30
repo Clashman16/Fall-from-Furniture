@@ -1,7 +1,5 @@
-using System.Collections;
-using System.Collections.Generic;
+using FFF.Utils;
 using UnityEngine;
-using static UnityEngine.Rendering.DebugUI;
 
 namespace FFF.Characters
 {
