@@ -1,6 +1,5 @@
 using FFF.Player;
 using FFF.Utils;
-using UnityEngine;
 
 namespace FFF.Behaviours.UI
 {
