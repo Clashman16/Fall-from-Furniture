@@ -46,8 +46,6 @@ namespace FFF.Behaviours.UI
          m_bDidPlayerWin = false;
       }
 
-    private int index = 0;
-
       private void Update()
       {
         EGameScreen l_currentGameScreen = PlayerStateSingleton.Instance.GameScreen;
