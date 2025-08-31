@@ -169,6 +169,11 @@ namespace FFF.Managers
 
          m_dFurnitureCount = l_lstFurniture.Length;
 
+
+         HorizontalLayoutGroup l_horizontalLayoutGroup = m_draggableFurnitureLayoutGroup.GetComponent<HorizontalLayoutGroup>();
+         l_horizontalLayoutGroup.childControlWidth = true;
+         l_horizontalLayoutGroup.childForceExpandWidth = true;
+
          for (int l_i = 0; l_i < m_dFurnitureCount; l_i++)
          {
             GameObject l_goSlot = Instantiate(m_goFurnitureSlotPrefab, m_furnitureSlotLayoutGroup.transform);
@@ -178,6 +183,9 @@ namespace FFF.Managers
             GameObject l_goDraggable = Instantiate(m_goDraggableFurniturePrefab, m_draggableFurnitureLayoutGroup.transform);
             l_goDraggable.GetComponent<DraggableFurnitureBehaviour>().Init(l_lstFurniture[l_i], this);
          }
+
+         l_horizontalLayoutGroup.childControlWidth = false;
+         l_horizontalLayoutGroup.childForceExpandWidth = false;
 
          m_cat = GetComponentInChildren<CatBehaviour>();
          m_cat.Init(l_lstFurniture.Length);
