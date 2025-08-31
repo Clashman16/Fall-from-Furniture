@@ -6,29 +6,17 @@ namespace FFF.Characters
   {
     private Animator m_animator;
 
-    #region Toggle Boolean (Walk, Climb)
-
-    public void ToggleWalk(bool p_isWalking)
+    public void TriggerWalk()
     {
-      ToggleAnimation("IsWalking", p_isWalking);
+      // Avoid forced reset when cat is reset before ending states
+      m_animator.ResetTrigger("TrReset");
+      TriggerAnimation("TrWalk");
     }
 
-    public void ToggleClimb(bool p_isClimbing)
+    public void TriggerClimb()
     {
-      ToggleAnimation("IsClimbing", p_isClimbing);
+      TriggerAnimation("TrClimb");
     }
-
-    private void ToggleAnimation(string p_animationName, bool p_isAnimation)
-    {
-      if (m_animator != null)
-      {
-        m_animator.SetBool(p_animationName, p_isAnimation);
-      }
-    }
-
-    #endregion
-
-  #region Trigger Animation (Fall, Win, Reset)
 
     public void TriggerFall()
     {
@@ -40,21 +28,18 @@ namespace FFF.Characters
       TriggerAnimation("TrWin");
     }
 
-  public void TriggerReset()
-  {
-      Debug.Log("reset cat");
-    TriggerAnimation("TrReset");
-  }
-
-  private void TriggerAnimation(string p_animationName)
-  {
-    if (m_animator != null)
+    public void TriggerReset()
     {
-      m_animator.SetTrigger(p_animationName);
+      TriggerAnimation("TrReset");
     }
-  }
 
-    #endregion
+    private void TriggerAnimation(string p_animationName)
+    {
+      if (m_animator != null)
+      {
+        m_animator.SetTrigger(p_animationName);
+      }
+    }
 
     // Start is called before the first frame update
     void Start()
