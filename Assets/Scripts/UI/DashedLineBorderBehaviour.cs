@@ -54,8 +54,6 @@ namespace FFF.Behaviours.UI
 
       public virtual void Init(LevelManager p_manager)
       {
-         DrawBorder();
-
          GradientAlphaKey[] l_lstAlpha = new GradientAlphaKey[] { new GradientAlphaKey(1, 0)};
 
          GradientColorKey[] l_lstColor = new GradientColorKey[] { 
@@ -125,6 +123,12 @@ namespace FFF.Behaviours.UI
          {
             m_levelManager.LastSelectedInteractable = this;
          }
+      }
+
+      public void OnRectTransformDimensionsChange()
+      {
+         DrawBorder();
+
       }
    }
 }
