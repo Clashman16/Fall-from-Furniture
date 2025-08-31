@@ -42,7 +42,7 @@ namespace FFF.Sounds
 
     public void Stop()
     {
-      StopCoroutine(m_coroutine);
+      if(m_coroutine != null) StopCoroutine(m_coroutine);
     }
 
     public void Pause()
