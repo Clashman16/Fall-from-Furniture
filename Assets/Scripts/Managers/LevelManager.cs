@@ -96,7 +96,7 @@ namespace FFF.Managers
 
                if(IsCheckingResult)
                {
-                  m_cat.FallingIndex = FurnitureUtils.TryClimbing(m_cat, m_lstStackedFurniture);  
+                  m_cat.FallingIndex = FurnitureUtils.TryClimbing(m_lstStackedFurniture);  
                   
                   m_cat.TryToGetFood(OnFall, OnWin);
                }
@@ -108,7 +108,7 @@ namespace FFF.Managers
                {
                   l_interactable.IsWaitingSelection = false;
                }
-
+               value.IsWaitingSelection = true; // To keep drag available
                m_furnitureSlotLayoutGroup.transform.GetChild(m_dCurrentRefillableSlotId).GetComponent<FurnitureDropSlotBehaviour>().IsWaitingSelection = true;
             }
 
@@ -128,7 +128,7 @@ namespace FFF.Managers
 
       public void OnFall()
       {
-        // TODO
+         ResetFurnituresAndCat();
       }
 
       public void OnWin()
@@ -192,6 +192,8 @@ namespace FFF.Managers
 
          m_lstStackedFurniture = new List<FurnitureDropSlotBehaviour>();
 
+         m_lastSelectedInteractable = null;
+
          if (m_timer == null)
          {
             m_timer = GetComponentInChildren<TimerBehaviour>();
@@ -199,7 +201,7 @@ namespace FFF.Managers
 
          m_timer.gameObject.SetActive(true);
 
-         m_timer.Reset();
+         m_timer.ResetData();
 
          m_sFXBehavior = GameObject.FindGameObjectWithTag(TagDatabaseSingleton.Instance.SFXPlayerTag).GetComponent<SFXBehavior>();
       }
@@ -217,10 +219,16 @@ namespace FFF.Managers
                l_goSlot.GetComponent<FurnitureDropSlotBehaviour>().Init(this);
             }
 
-            m_draggableFurnitureLayoutGroup.transform.GetChild(l_i).GetComponent<DraggableFurnitureBehaviour>().Reset();
-         }
+              m_draggableFurnitureLayoutGroup.transform.GetChild(l_i).GetComponent<DraggableFurnitureBehaviour>().ResetData();
+           }
 
-         m_cat.Init(m_dFurnitureCount);
+         m_dCurrentRefillableSlotId = 0;
+        
+         if(m_lstStackedFurniture != null) m_lstStackedFurniture.Clear();
+
+         m_lastSelectedInteractable = null;
+      
+         m_cat.ResetData(m_dFurnitureCount);
 
          if(m_timer == null)
          {
@@ -229,7 +237,29 @@ namespace FFF.Managers
 
          m_timer.gameObject.SetActive(true);
 
-         m_timer.Reset();
+         m_timer.ResetData();
+      }
+
+      private void ResetFurnituresAndCat()
+      {
+          Transform l_trfSlotLayoutGroup = m_furnitureSlotLayoutGroup.transform;
+          for (int l_i = 0; l_i < m_dFurnitureCount; l_i++)
+          {
+            if (l_i < l_trfSlotLayoutGroup.childCount)
+            {
+                l_trfSlotLayoutGroup.GetChild(l_i).GetComponent<FurnitureDropSlotBehaviour>().ResetData();
+            }
+
+            m_draggableFurnitureLayoutGroup.transform.GetChild(l_i).GetComponent<DraggableFurnitureBehaviour>().ResetData();
+          }
+
+          m_dCurrentRefillableSlotId = 0;
+
+          if(m_lstStackedFurniture != null) m_lstStackedFurniture.Clear();
+
+          m_lastSelectedInteractable = null;
+
+          m_cat.ResetData();
       }
 
       private void ClearLevel()
@@ -245,7 +275,7 @@ namespace FFF.Managers
             Destroy(m_draggableFurnitureLayoutGroup.transform.GetChild(l_i).gameObject);
          }
 
-         m_lstStackedFurniture.Clear();
+         if(m_lstStackedFurniture != null) m_lstStackedFurniture.Clear();
       }
    }
 }

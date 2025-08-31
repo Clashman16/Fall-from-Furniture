@@ -104,7 +104,7 @@ namespace FFF.Behaviours.UI
                l_endCanvas.Init(m_bDidPlayerWin);
             }
 
-            l_currentActiveCanvas.Reset();
+            l_currentActiveCanvas.ResetData();
 
             if (l_currentActiveCanvas != null && !l_currentActiveCanvas.HasTranslated)
             {

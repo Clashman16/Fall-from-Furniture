@@ -10,7 +10,7 @@ namespace HypNot.Behaviours.UI
       private AudioSource m_backgroundMusic;
       private CatNoisesBehavior m_catNoises;
 
-      public override void Reset()
+      public override void ResetData()
       {
          if (m_backgroundMusic == null)
          {
@@ -25,7 +25,7 @@ namespace HypNot.Behaviours.UI
          }
          m_catNoises.Pause();
 
-         base.Reset();
+         base.ResetData();
       }
    }
 }

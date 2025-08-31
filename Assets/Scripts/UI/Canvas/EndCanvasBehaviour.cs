@@ -15,7 +15,7 @@ namespace FFF.Behaviours.UI
 
       private NextLevelButtonBehaviour m_nextLevelBtn;
 
-      public override void Reset()
+      public override void ResetData()
       {
          if (m_backgroundMusic == null)
          {
@@ -39,7 +39,7 @@ namespace FFF.Behaviours.UI
 
          //m_sfx.clip = SFXDatabaseSingleton.Instance.Database.EndSound;
 
-         base.Reset();
+         base.ResetData();
       }
 
       public void Init(bool p_bDidPlayerWin)

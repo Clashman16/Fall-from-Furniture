@@ -27,7 +27,7 @@ namespace FFF.Behaviours.UI
 
       private ScreenManagerBehaviour m_screenManager;
 
-      public override void Reset()
+      public override void ResetData()
       {
          if(m_backgroundMusic == null)
          {

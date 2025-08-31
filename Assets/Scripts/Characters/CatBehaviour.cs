@@ -14,11 +14,6 @@ namespace FFF.Characters
       get => m_cat;
     }
 
-    public void Init(int p_staminaValue)
-    {
-      m_cat = new CatData(p_staminaValue);
-    }
-
     #endregion
 
     #region Movements and Animations
@@ -26,7 +21,7 @@ namespace FFF.Characters
     private CatAnimationController m_animationController;
 
     private CatMovementBehaviour m_movementBehaviour;
-    
+
     private System.Action m_onFallCallback;
     private System.Action m_onWinCallback;
 
@@ -46,13 +41,13 @@ namespace FFF.Characters
 
     private void WalkToFurnitures()
     {
-      m_animationController.ToggleWalk(true);
+      m_animationController.TriggerWalk();
       m_movementBehaviour.WalkTo(new Vector2(m_furnitures.transform.position.x - RectTransformUtils.GetAbsoluteSize(m_furnitures).x * 0.75f, transform.position.y), OnFurnituresReached);
     }
 
     public void OnFurnituresReached()
     {
-      m_animationController.ToggleWalk(false);
+      m_animationController.TriggerClimb();
       ClimbToNext();
     }
 
@@ -77,7 +72,6 @@ namespace FFF.Characters
       m_currentFurnitureIndex++;
       if (m_currentFurnitureIndex < m_furnitures.transform.childCount)
       {
-        m_animationController.ToggleClimb(true);
         m_movementBehaviour.ClimbTo(new Vector2(transform.position.x, m_furnitures.transform.GetChild(m_currentFurnitureIndex).transform.position.y), OnFurnitureClimbed);
       }
       else
@@ -88,8 +82,6 @@ namespace FFF.Characters
 
     public void OnFurnitureClimbed()
     {
-      m_animationController.ToggleClimb(false);
-
       if (m_fallingIndex < 0 || m_currentFurnitureIndex < m_fallingIndex)
       {
         ClimbToNext();
@@ -123,25 +115,22 @@ namespace FFF.Characters
 
     private void ClimbToFood()
     {
-      m_animationController.ToggleClimb(true);
       m_movementBehaviour.ClimbTo(new Vector2(transform.position.x, m_food.transform.position.y), OnFoodHeightReached);
     }
 
     private void OnFoodHeightReached()
     {
-      m_animationController.ToggleClimb(false);
       WalkToFood();
     }
 
     private void WalkToFood()
     {
-      m_animationController.ToggleWalk(true);
+      m_animationController.TriggerWalk();
       m_movementBehaviour.WalkTo(new Vector2(m_food.transform.position.x, transform.position.y), OnFoodReached);
     }
 
     private void OnFoodReached()
     {
-      m_animationController.ToggleWalk(false);
       Win();
     }
 
@@ -159,11 +148,37 @@ namespace FFF.Characters
 
     #endregion
 
+    private Vector2 m_originalPosition;
+
     // Start is called before the first frame update
     void Start()
     {
+      m_originalPosition = transform.position;
       m_animationController = GetComponent<CatAnimationController>();
       m_movementBehaviour = GetComponent<CatMovementBehaviour>();
+    }
+
+    public void Init(int p_staminaValue)
+    {
+      if(m_cat == null)
+      {
+        m_cat = new CatData(p_staminaValue);
+      } else
+      {
+        m_cat.StaminaMax = p_staminaValue;
+      }
+      transform.position = m_originalPosition;
+    }
+
+    public void ResetData()
+    {
+      ResetData(m_cat.StaminaMax);
+    }
+
+    public void ResetData(int p_staminaValue)
+    {
+      Init(p_staminaValue);
+      m_animationController.TriggerReset();
     }
   }
 }

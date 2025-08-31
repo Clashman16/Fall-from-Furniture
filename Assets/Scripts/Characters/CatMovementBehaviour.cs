@@ -15,22 +15,12 @@ namespace FFF.Characters
     }
     private bool MoveTowardsTarget(float p_fSpeed)
     {
-      return MoveTowardsTarget(p_fSpeed, true);
-    }
-
-    private bool MoveTowardsTarget(float p_fSpeed, bool p_bCheckDistance)
-    {
       // Move our position a step closer to the target.
       var step = p_fSpeed * Time.deltaTime; // calculate distance to move
       transform.position = Vector2.MoveTowards(transform.position, m_targetPosition, step);
 
-      if (p_bCheckDistance)
-      {
-        // Check if the position of the cat and target are approximately equal.
-        return Vector2.Distance(transform.position, m_targetPosition) < 0.001f;
-      }
-
-      return false;
+      // Check if the position of the cat and target are approximately equal.
+      return Vector2.Distance(transform.position, m_targetPosition) < 0.001f;
     }
 
     private void InitMovement(Vector2 p_targetPosition, EMovement p_movement, System.Action p_callback)
@@ -59,15 +49,15 @@ namespace FFF.Characters
       InitMovement(p_targetPosition, EMovement.WALK, p_callback);
     }
 
-    private void Walk()
-    {
-      bool l_targetReached = MoveTowardsTarget(m_fWalkingSpeed);
+  private void Walk()
+  {
+    bool l_bTargetReached = MoveTowardsTarget(m_fWalkingSpeed);
 
-      if (l_targetReached)
-      {
-        EndMovement();
-      }
+    if (l_bTargetReached)
+    {
+      EndMovement();
     }
+  }
 
     #endregion
 
@@ -80,15 +70,15 @@ namespace FFF.Characters
       InitMovement(p_targetPosition, EMovement.CLIMB, p_callback);
     }
 
-    public void Climb()
-    {
-      bool l_targetReached = MoveTowardsTarget(m_fClimbingSpeed);
+  public void Climb()
+  {
+    bool l_bTargetReached = MoveTowardsTarget(m_fClimbingSpeed);
 
-      if (l_targetReached)
-      {
-        EndMovement();
-      }
+    if (l_bTargetReached)
+    {
+      EndMovement();
     }
+  }
 
     #endregion
 
@@ -114,14 +104,13 @@ namespace FFF.Characters
         m_fCurrentFallingSpeed = m_fMaxFallingSpeed;
       }
 
-      MoveTowardsTarget(m_fCurrentFallingSpeed, false);
+    bool l_bTargetReached = MoveTowardsTarget(m_fCurrentFallingSpeed);
 
-      // Check if the cat y position is under the ground
-      if (transform.position.y < m_targetPosition.y)
-      {
-        EndMovement();
-      }
+    if (l_bTargetReached)
+    {
+      EndMovement();
     }
+  }
 
     #endregion
 

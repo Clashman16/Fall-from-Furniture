@@ -16,7 +16,7 @@ namespace FFF.Behaviours.UI
 
       private LineRenderer m_border;
 
-      private Image m_imgFurnitureDisplay;
+      protected Image m_imgFurnitureDisplay;
 
       public Image FurnitureDisplay
       {

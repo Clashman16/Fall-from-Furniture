@@ -19,7 +19,7 @@ namespace FFF.Behaviours.UI
          }
       }
 
-      public virtual void Reset()
+      public virtual void ResetData()
       {
          if(!HasTranslated)
          {

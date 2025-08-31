@@ -47,7 +47,7 @@ namespace FFF.Behaviours.UI
          m_timerDisplay.text = string.Format("{0:0}:{1:00}", Mathf.FloorToInt(m_fTime / 60f), Mathf.FloorToInt(m_fTime % 60f));
       }
 
-      public void Reset()
+      public void ResetData()
       {
          m_fTime = PlayerSaveSingleton.Instance.TimerMax * 60f;
       }
