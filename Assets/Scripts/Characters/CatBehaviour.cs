@@ -14,11 +14,6 @@ namespace FFF.Characters
       get => m_cat;
     }
 
-    public void Init(int p_staminaValue)
-    {
-      m_cat = new CatData(p_staminaValue);
-    }
-
     #endregion
 
     #region Movements and Animations
@@ -168,15 +163,27 @@ namespace FFF.Characters
       m_animationController = GetComponent<CatAnimationController>();
       m_movementBehaviour = GetComponent<CatMovementBehaviour>();
     }
-    public void Reset()
+
+    public void Init(int p_staminaValue)
     {
-      Reset(m_cat.StaminaMax);
+      if(m_cat == null)
+      {
+        m_cat = new CatData(p_staminaValue);
+      } else
+      {
+        m_cat.StaminaMax = p_staminaValue;
+      }
+      transform.position = m_originalPosition;
     }
 
-    public void Reset(int p_staminaValue)
+    public void ResetData()
     {
-      m_cat.StaminaMax = p_staminaValue;
-      transform.position = m_originalPosition;
+      ResetData(m_cat.StaminaMax);
+    }
+
+    public void ResetData(int p_staminaValue)
+    {
+      Init(p_staminaValue);
       m_animationController.TriggerReset();
     }
   }

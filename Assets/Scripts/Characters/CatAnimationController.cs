@@ -42,6 +42,7 @@ namespace FFF.Characters
 
   public void TriggerReset()
   {
+      Debug.Log("reset cat");
     TriggerAnimation("TrReset");
   }
 

@@ -6,7 +6,7 @@ namespace FFF.Behaviours.UI
       //
       //private LanguageButtonBehaviour[] m_languageButtons;
 
-      public override void Reset()
+      public override void ResetData()
       {
          //if(m_sliders == null)
          //{
@@ -28,7 +28,7 @@ namespace FFF.Behaviours.UI
          //   l_button.Reset();
          //}
          //
-         base.Reset();
+         base.ResetData();
       }
    }
 }

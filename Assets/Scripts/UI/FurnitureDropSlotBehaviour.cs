@@ -63,7 +63,7 @@ namespace FFF.Behaviours.UI
             s_gradient.SetKeys(l_lstColors, l_lstAlphas);
         }
         
-        Reset();
+        ResetData();
       }
 
       public void OnDrop(PointerEventData p_eventData)
@@ -77,7 +77,7 @@ namespace FFF.Behaviours.UI
          }
       }
 
-      public void Reset()
+      public void ResetData()
       {
         CurrentProbability = 0.0f;
         IsWaitingSelection = false;

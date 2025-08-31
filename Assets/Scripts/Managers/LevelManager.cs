@@ -192,6 +192,8 @@ namespace FFF.Managers
 
          m_lstStackedFurniture = new List<FurnitureDropSlotBehaviour>();
 
+         m_lastSelectedInteractable = null;
+
          if (m_timer == null)
          {
             m_timer = GetComponentInChildren<TimerBehaviour>();
@@ -199,7 +201,7 @@ namespace FFF.Managers
 
          m_timer.gameObject.SetActive(true);
 
-         m_timer.Reset();
+         m_timer.ResetData();
 
          m_sFXBehavior = GameObject.FindGameObjectWithTag(TagDatabaseSingleton.Instance.SFXPlayerTag).GetComponent<SFXBehavior>();
       }
@@ -217,14 +219,16 @@ namespace FFF.Managers
                l_goSlot.GetComponent<FurnitureDropSlotBehaviour>().Init(this);
             }
 
-              m_draggableFurnitureLayoutGroup.transform.GetChild(l_i).GetComponent<DraggableFurnitureBehaviour>().Reset();
+              m_draggableFurnitureLayoutGroup.transform.GetChild(l_i).GetComponent<DraggableFurnitureBehaviour>().ResetData();
            }
 
          m_dCurrentRefillableSlotId = 0;
         
-         m_lstStackedFurniture.Clear();
+         if(m_lstStackedFurniture != null) m_lstStackedFurniture.Clear();
+
+         m_lastSelectedInteractable = null;
       
-         m_cat.Reset(m_dFurnitureCount);
+         m_cat.ResetData(m_dFurnitureCount);
 
          if(m_timer == null)
          {
@@ -233,7 +237,7 @@ namespace FFF.Managers
 
          m_timer.gameObject.SetActive(true);
 
-         m_timer.Reset();
+         m_timer.ResetData();
       }
 
       private void ResetFurnituresAndCat()
@@ -243,17 +247,19 @@ namespace FFF.Managers
             Transform l_trfSlotLayoutGroup = m_furnitureSlotLayoutGroup.transform;
             if (l_i < l_trfSlotLayoutGroup.childCount)
             {
-                l_trfSlotLayoutGroup.GetChild(l_i).GetComponent<FurnitureDropSlotBehaviour>().Reset();
+                l_trfSlotLayoutGroup.GetChild(l_i).GetComponent<FurnitureDropSlotBehaviour>().ResetData();
             }
 
-            m_draggableFurnitureLayoutGroup.transform.GetChild(l_i).GetComponent<DraggableFurnitureBehaviour>().Reset();
+            m_draggableFurnitureLayoutGroup.transform.GetChild(l_i).GetComponent<DraggableFurnitureBehaviour>().ResetData();
           }
 
           m_dCurrentRefillableSlotId = 0;
 
-          m_lstStackedFurniture.Clear();
+          if(m_lstStackedFurniture != null) m_lstStackedFurniture.Clear();
 
-          m_cat.Reset();
+          m_lastSelectedInteractable = null;
+
+          m_cat.ResetData();
       }
 
       private void ClearLevel()
@@ -269,7 +275,7 @@ namespace FFF.Managers
             Destroy(m_draggableFurnitureLayoutGroup.transform.GetChild(l_i).gameObject);
          }
 
-         m_lstStackedFurniture.Clear();
+         if(m_lstStackedFurniture != null) m_lstStackedFurniture.Clear();
       }
    }
 }

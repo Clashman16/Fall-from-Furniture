@@ -100,7 +100,7 @@ namespace FFF.Behaviours.Interactable
          }
       }
 
-      public void Reset()
+      public void ResetData()
       {
          gameObject.SetActive(true);
       }

@@ -2,9 +2,9 @@ namespace FFF.Behaviours.UI
 {
    public class CreditsCanvasBehaviour : CanvasBehaviour
    {
-      public override void Reset()
+      public override void ResetData()
       {
-         base.Reset();
+         base.ResetData();
       }
    }
 }

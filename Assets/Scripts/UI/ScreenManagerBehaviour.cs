@@ -46,6 +46,8 @@ namespace FFF.Behaviours.UI
          m_bDidPlayerWin = false;
       }
 
+    private int index = 0;
+
       private void Update()
       {
         EGameScreen l_currentGameScreen = PlayerStateSingleton.Instance.GameScreen;
@@ -104,7 +106,7 @@ namespace FFF.Behaviours.UI
                l_endCanvas.Init(m_bDidPlayerWin);
             }
 
-            l_currentActiveCanvas.Reset();
+            l_currentActiveCanvas.ResetData();
 
             if (l_currentActiveCanvas != null && !l_currentActiveCanvas.HasTranslated)
             {
