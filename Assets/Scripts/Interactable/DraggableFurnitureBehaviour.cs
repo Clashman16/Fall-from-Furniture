@@ -43,9 +43,9 @@ namespace FFF.Behaviours.Interactable
 
       private RectTransform m_trf;
 
-      private Vector3 m_vecFirstPosition;
-
       private CanvasGroup m_canvasGroup;
+    
+      private Vector2 m_originalPosition;
 
       #endregion
 
@@ -68,8 +68,6 @@ namespace FFF.Behaviours.Interactable
          m_canvasGroup = GetComponent<CanvasGroup>();
 
          m_trf = GetComponent<RectTransform>();
-
-         m_vecFirstPosition = transform.position;
       }
 
       public void OnBeginDrag(PointerEventData p_eventData)
@@ -78,31 +76,34 @@ namespace FFF.Behaviours.Interactable
          {
             LevelManager.LastSelectedInteractable = this;
 
+            m_originalPosition = m_trf.anchoredPosition;
+
             m_canvasGroup.blocksRaycasts = false;
+         } else
+         {
+           p_eventData.pointerDrag = null;
          }
       }
 
       public void OnDrag(PointerEventData p_eventData)
       {
-         if(PlayerStateSingleton.Instance.GameScreen == Utils.EGameScreen.GAME_SCREEN)
-         {
-            m_trf.anchoredPosition += p_eventData.delta / m_canvas.scaleFactor;
-         }
+        // Check is done on OnBeginDrag
+         m_trf.anchoredPosition += p_eventData.delta / m_canvas.scaleFactor;
       }
 
       public void OnEndDrag(PointerEventData p_eventData)
       {
-         if (PlayerStateSingleton.Instance.GameScreen == Utils.EGameScreen.GAME_SCREEN)
-         {
-            m_trf.anchoredPosition = Vector2.zero;
-
-            m_canvasGroup.blocksRaycasts = true;
-         }
+        // Check is done on OnBeginDrag
+         m_trf.anchoredPosition = m_originalPosition;
+         m_canvasGroup.blocksRaycasts = true;
+         IsWaitingSelection = true; // To keep drag available
       }
 
       public void ResetData()
       {
          gameObject.SetActive(true);
+         m_canvasGroup.blocksRaycasts = true;
+         IsWaitingSelection = true;
       }
    }
 }

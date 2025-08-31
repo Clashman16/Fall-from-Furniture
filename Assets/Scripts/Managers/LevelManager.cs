@@ -108,7 +108,7 @@ namespace FFF.Managers
                {
                   l_interactable.IsWaitingSelection = false;
                }
-
+               value.IsWaitingSelection = true; // To keep drag available
                m_furnitureSlotLayoutGroup.transform.GetChild(m_dCurrentRefillableSlotId).GetComponent<FurnitureDropSlotBehaviour>().IsWaitingSelection = true;
             }
 
@@ -242,9 +242,9 @@ namespace FFF.Managers
 
       private void ResetFurnituresAndCat()
       {
+          Transform l_trfSlotLayoutGroup = m_furnitureSlotLayoutGroup.transform;
           for (int l_i = 0; l_i < m_dFurnitureCount; l_i++)
           {
-            Transform l_trfSlotLayoutGroup = m_furnitureSlotLayoutGroup.transform;
             if (l_i < l_trfSlotLayoutGroup.childCount)
             {
                 l_trfSlotLayoutGroup.GetChild(l_i).GetComponent<FurnitureDropSlotBehaviour>().ResetData();
